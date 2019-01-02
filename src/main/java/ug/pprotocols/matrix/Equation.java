@@ -19,15 +19,17 @@ public class Equation<T extends MatrixCompatible> {
     public SparseFieldVector<DoubleComp> sparseFieldVector;
     private MatrixCompatible[] vectorB;
     private MatrixCompatible[] vectorXGauss;
-    private MatrixCompatible[] vectorXJac;
     private MatrixCompatible[] vectorXGaussSparse;
     private MatrixCompatible[] vectorXGS;
     private MatrixCompatible[] newVectorB;
     private GaussImpl gauss;
 
-    Equation(MyMatrix<T> matrixA, MatrixCompatible[] vectorB, MatrixCompatible vectorX, SparseFieldMatrix<DoubleComp> sparseFieldMatrix, SparseFieldVector<DoubleComp> sparseFieldVector) {
+    public Equation(MyMatrix<T> matrixA, MatrixCompatible[] vectorB, MatrixCompatible vectorX) {
         this.matrixA = matrixA;
         this.vectorB = vectorB;
+    }
+
+    public Equation(SparseFieldMatrix<DoubleComp> sparseFieldMatrix, SparseFieldVector<DoubleComp> sparseFieldVector) {
         this.sparseFieldMatrix = sparseFieldMatrix;
         this.sparseFieldVector = sparseFieldVector;
     }
@@ -48,28 +50,19 @@ public class Equation<T extends MatrixCompatible> {
                 this.vectorXGauss = gauss.gauss(vectorB,false);
                 setNewVectorB(matrixA,this.vectorXGauss);
                 return this.vectorXGauss;
-            case JACOBIAN_MINUS6:
-            case JACOBIAN_MINUS10:
-            case JACOBIAN_MINUS14:
-                gauss = new GaussImpl(matrixA,new MatrixCompatibleFactory(DataType.DOUBLE),new DoubleOperation(), ChoiceType.PARTIAL);
-                this.vectorXJac = gauss.jacobian(vectorB,type.getPrecision());
-                setNewVectorB(matrixA,this.vectorXJac);
-                return this.vectorXJac;
             case GAUSS_SPARSE:
                 gauss = new GaussImpl(matrixA,new MatrixCompatibleFactory(DataType.DOUBLE),new DoubleOperation(), ChoiceType.PARTIAL);
                 this.vectorXGaussSparse = gauss.gauss(vectorB,true);
                 setNewVectorB(matrixA,this.vectorXGaussSparse);
                 return this.vectorXGaussSparse;
-            case GAUSS_SEIDEL_MINUS6:
             case GAUSS_SEIDEL_MINUS10:
-            case GAUSS_SEIDEL_MINUS14:
                 gauss = new GaussImpl(matrixA,new MatrixCompatibleFactory(DataType.DOUBLE),new DoubleOperation(), ChoiceType.PARTIAL);
                 this.vectorXGS = gauss.gaussSeidel(vectorB,type.getPrecision());
                 setNewVectorB(matrixA,this.vectorXGS);
                 return this.vectorXGS;
             case LIBRARY_SPARSE:
                 FieldLUDecomposition<DoubleComp> solver = new FieldLUDecomposition<>(sparseFieldMatrix);
-                System.out.println(Arrays.toString(solver.getSolver().solve(sparseFieldVector).toArray()));
+                return solver.getSolver().solve(sparseFieldVector).toArray();
         }
         return null;
     }
@@ -93,10 +86,6 @@ public class Equation<T extends MatrixCompatible> {
 
     public MatrixCompatible[] getVectorXGauss() {
         return vectorXGauss;
-    }
-
-    public MatrixCompatible[] getVectorXJac() {
-        return vectorXJac;
     }
 
     public MatrixCompatible[] getVectorXGS() {

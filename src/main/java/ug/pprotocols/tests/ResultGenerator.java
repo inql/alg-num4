@@ -1,7 +1,6 @@
 package ug.pprotocols.tests;
 
 import ug.pprotocols.Type;
-import ug.pprotocols.algorithm.Mcarlo;
 import ug.pprotocols.datatypes.DataType;
 import ug.pprotocols.datatypes.MatrixCompatible;
 import ug.pprotocols.datatypes.MatrixCompatibleFactory;
@@ -34,8 +33,9 @@ public class ResultGenerator {
             testsResults.put(type,new HashMap<>());
         }
 
-        long start,stop;
-        double timeInMilliSeconds;
+        long executionStart,executionStop;
+        long generateStart,generateStop;
+        double executionTimeInMilliSeconds,generateTimeInMilliSeconds;
         MatrixGenerator matrixGenerator;
 
 
@@ -49,26 +49,22 @@ public class ResultGenerator {
                         testsResults.keySet()) {
                 AggregatedResults aggregatedResults = new AggregatedResults();
                 for(int i = 0; i< testScope.get(agentsNumber); i++) {
-                        Equation equationToSolve = matrixGenerator.generateEquation();
+                    //tutaj liczenie czasu dla generowania
+                    generateStart = System.nanoTime();
+                    Equation equationToSolve = matrixGenerator.generateEquation(type);
+                    generateStop = System.nanoTime();
+                    generateTimeInMilliSeconds = ((generateStop-generateStart)/1000000D);
                     System.out.println(matrixGenerator.indexToKey.size());
-                        start = System.nanoTime();
-                        MatrixCompatible[] results = equationToSolve.evaluate(type);
-                        stop = System.nanoTime();
-                        timeInMilliSeconds = ((stop-start)/1000000D);
-                        if(monteCarloValues != null)
-                            aggregatedResults.updateAggregatedResults(new Results(
-                                    calculateAbsoluteErrorMax(equationToSolve.getVectorB(),
-                                            equationToSolve.getNewVectorB(),equationToSolve),
-                                    timeInMilliSeconds,
-                                    calculateAbsoluteErrorAverage(monteCarloValues, results,equationToSolve),
-                                    calculateAbsoluteErrorAverage(equationToSolve.getVectorB(),
-                                            equationToSolve.getNewVectorB(),equationToSolve)));
-                        else
-                            aggregatedResults.updateAggregatedResults(new Results(
-                                    calculateAbsoluteErrorMax(equationToSolve.getVectorB(),
-                                            equationToSolve.getNewVectorB(),equationToSolve),
-                                    timeInMilliSeconds,
-                                    0,
+                    //tutaj liczenie czasu dla obliczania
+                    executionStart = System.nanoTime();
+                    MatrixCompatible[] results = equationToSolve.evaluate(type);
+                    executionStop = System.nanoTime();
+                    executionTimeInMilliSeconds = ((executionStop-executionStart)/1000000D);
+                    aggregatedResults.updateAggregatedResults(new Results(
+                            calculateAbsoluteErrorMax(equationToSolve.getVectorB(),
+                                    equationToSolve.getNewVectorB(),equationToSolve),
+                                    executionTimeInMilliSeconds,
+                                    generateTimeInMilliSeconds,
                                     calculateAbsoluteErrorAverage(equationToSolve.getVectorB(),
                                             equationToSolve.getNewVectorB(),equationToSolve)));
                     }

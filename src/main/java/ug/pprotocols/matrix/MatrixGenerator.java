@@ -41,22 +41,31 @@ public class MatrixGenerator {
             for(int i = 0 ; i<vectorB.length-1; i++){
                 vectorB[i] =  matrixCompatibleFactory.createWithNominator(0D);
             }
-        }
-        SparseFieldMatrix<DoubleComp> sparseFieldMatrix = new SparseFieldMatrix<>(new DoubleComp(),numberOfEquations,numberOfEquations);
-        SparseFieldVector<DoubleComp> sparseFieldVector = new SparseFieldVector<>(new DoubleComp(),numberOfEquations);
-        for(int i = 0 ; i<sparseFieldVector.getDimension()-1; i++){
-            sparseFieldVector.setEntry(i,new DoubleComp(0D));
-        }
-        vectorB[vectorB.length-1] = matrixCompatibleFactory.createWithNominator(1D);
-        sparseFieldVector.setEntry(sparseFieldVector.getDimension()-1,new DoubleComp(1D));
+            vectorB[vectorB.length-1] = matrixCompatibleFactory.createWithNominator(1D);
 
-        for(int i = 0; i< matrixA.length; i++){
-            for(int j = 0; j<matrixA.length; j++){
-                matrixA[i][j] = generateValue(i,j);
-                sparseFieldMatrix.addToEntry(i,j,(DoubleComp)generateValue(i,j));
+            for(int i = 0; i< matrixA.length; i++){
+                for(int j = 0; j<matrixA.length; j++){
+                    matrixA[i][j] = generateValue(i,j);
+                }
             }
+            return new Equation<>(new MyMatrix<>((DoubleComp[][]) matrixA),vectorB,null);
         }
-        return new Equation<>(new MyMatrix<>((DoubleComp[][]) matrixA),vectorB,null,sparseFieldMatrix,sparseFieldVector);
+        else{
+            SparseFieldMatrix<DoubleComp> sparseFieldMatrix = new SparseFieldMatrix<>(new DoubleComp(),numberOfEquations,numberOfEquations);
+            SparseFieldVector<DoubleComp> sparseFieldVector = new SparseFieldVector<>(new DoubleComp(),numberOfEquations);
+            for(int i = 0 ; i<sparseFieldVector.getDimension()-1; i++){
+                sparseFieldVector.setEntry(i,new DoubleComp(0D));
+            }
+            sparseFieldVector.setEntry(sparseFieldVector.getDimension()-1,new DoubleComp(1D));
+
+            for(int i = 0; i< sparseFieldMatrix.getRowDimension(); i++){
+                for(int j = 0; j<sparseFieldMatrix.getColumnDimension(); j++){
+                    sparseFieldMatrix.addToEntry(i,j,(DoubleComp)generateValue(i,j));
+                }
+            }
+            return new Equation<>(sparseFieldMatrix,sparseFieldVector);
+        }
+
     }
 
     private MatrixCompatible generateValue(int i, int j){

@@ -3,20 +3,20 @@ package ug.pprotocols.tests;
 public class Results {
 
     double absoluteErrorMax;
-    double executionTime;
-    double differenceFromMonteCarlo;
+    double solveExecutionTime;
     double absoluteErrorAverage;
+    double generateExecutionTime;
 
-    public Results(double absoluteErrorMax, double executionTime, double differenceFromMonteCarlo, double absoluteErrorAverage) {
+    public Results(double absoluteErrorMax, double solveExecutionTime, double absoluteErrorAverage, double generateExecutionTime) {
         this.absoluteErrorMax = absoluteErrorMax;
-        this.executionTime = executionTime;
-        this.differenceFromMonteCarlo = differenceFromMonteCarlo;
+        this.solveExecutionTime = solveExecutionTime;
         this.absoluteErrorAverage = absoluteErrorAverage;
+        this.generateExecutionTime = generateExecutionTime;
     }
 
     @Override
     public String toString() {
-        return absoluteErrorMax +","+absoluteErrorAverage+","+differenceFromMonteCarlo+","+executionTime+",";
+        return absoluteErrorMax +","+absoluteErrorAverage+","+generateExecutionTime+","+ solveExecutionTime +",";
     }
 
 

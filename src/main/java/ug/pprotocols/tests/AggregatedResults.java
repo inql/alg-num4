@@ -12,16 +12,16 @@ public class AggregatedResults {
 
     public void updateAggregatedResults(Results values){
         this.results.absoluteErrorMax +=values.absoluteErrorMax;
-        this.results.executionTime+=values.executionTime;
-        this.results.differenceFromMonteCarlo+=values.differenceFromMonteCarlo;
+        this.results.solveExecutionTime +=values.solveExecutionTime;
+        this.results.generateExecutionTime+=values.generateExecutionTime;
         this.results.absoluteErrorAverage+=values.absoluteErrorAverage;
         this.executionCount++;
     }
 
     public void divideByExecutionCount(){
         this.results.absoluteErrorMax /=(double)executionCount;
-        this.results.executionTime/=(double)executionCount;
-        this.results.differenceFromMonteCarlo/=(double)executionCount;
+        this.results.solveExecutionTime /=(double)executionCount;
+        this.results.generateExecutionTime/=(double)executionCount;
         this.results.absoluteErrorAverage/=(double)executionCount;
     }
 
