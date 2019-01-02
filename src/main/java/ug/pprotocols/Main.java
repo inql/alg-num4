@@ -1,5 +1,10 @@
 package ug.pprotocols;
 
+import org.apache.commons.math3.Field;
+import org.apache.commons.math3.linear.SparseFieldMatrix;
+import org.apache.commons.math3.linear.SparseRealMatrix;
+import ug.pprotocols.datatypes.DoubleComp;
+import ug.pprotocols.datatypes.MatrixCompatible;
 import ug.pprotocols.matrix.Case;
 import ug.pprotocols.matrix.MatrixGenerator;
 import ug.pprotocols.tests.AggregatedResults;
@@ -34,7 +39,6 @@ public class Main {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
-
         MatrixGenerator matrixGenerator = new MatrixGenerator(new Case(0,0,3));
         System.out.println(matrixGenerator.generateEquation());
     }

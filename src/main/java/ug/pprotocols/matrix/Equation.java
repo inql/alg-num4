@@ -1,9 +1,12 @@
 package ug.pprotocols.matrix;
 
+import org.apache.commons.math3.linear.SparseFieldMatrix;
+import org.apache.commons.math3.linear.SparseFieldVector;
 import ug.pprotocols.ChoiceType;
 import ug.pprotocols.Type;
 import ug.pprotocols.algorithm.GaussImpl;
 import ug.pprotocols.datatypes.DataType;
+import ug.pprotocols.datatypes.DoubleComp;
 import ug.pprotocols.datatypes.MatrixCompatible;
 import ug.pprotocols.datatypes.MatrixCompatibleFactory;
 import ug.pprotocols.operations.DoubleOperation;
@@ -13,6 +16,8 @@ import java.util.Arrays;
 public class Equation<T extends MatrixCompatible> {
 
     private MyMatrix<T> matrixA;
+    public SparseFieldMatrix<DoubleComp> sparseFieldMatrix;
+    public SparseFieldVector<DoubleComp> sparseFieldVector;
     private MatrixCompatible[] vectorB;
     private MatrixCompatible[] vectorXGauss;
     private MatrixCompatible[] vectorXJac;
@@ -21,16 +26,20 @@ public class Equation<T extends MatrixCompatible> {
     private MatrixCompatible[] newVectorB;
     private GaussImpl gauss;
 
-    Equation(MyMatrix<T> matrixA, MatrixCompatible[] vectorB, MatrixCompatible vectorX) {
+    Equation(MyMatrix<T> matrixA, MatrixCompatible[] vectorB, MatrixCompatible vectorX, SparseFieldMatrix<DoubleComp> sparseFieldMatrix, SparseFieldVector<DoubleComp> sparseFieldVector) {
         this.matrixA = matrixA;
         this.vectorB = vectorB;
+        this.sparseFieldMatrix = sparseFieldMatrix;
+        this.sparseFieldVector = sparseFieldVector;
     }
 
     @Override
     public String toString() {
         return "Equation{\n" +
                 "matrixA=\n" + matrixA +
-                ", \nvectorB=\n" + Arrays.deepToString(vectorB);
+                ", \nvectorB=\n" + Arrays.deepToString(vectorB) + "\n" +
+                "sparse matrixA=\n"+sparseFieldMatrix + "\n" +
+                "sparse vectorB=\n"+ Arrays.toString(sparseFieldVector.toArray());
     }
 
     public MatrixCompatible[] evaluate(Type type){

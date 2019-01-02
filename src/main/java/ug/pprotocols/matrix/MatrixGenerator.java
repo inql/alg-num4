@@ -1,10 +1,13 @@
 package ug.pprotocols.matrix;
 
+import org.apache.commons.math3.linear.SparseFieldMatrix;
+import org.apache.commons.math3.linear.SparseFieldVector;
 import ug.pprotocols.datatypes.DataType;
 import ug.pprotocols.datatypes.DoubleComp;
 import ug.pprotocols.datatypes.MatrixCompatible;
 import ug.pprotocols.datatypes.MatrixCompatibleFactory;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,6 +16,7 @@ public class MatrixGenerator {
     public int agentsCount;
     public Map<Integer, Case> indexToKey;
     public MatrixCompatibleFactory matrixCompatibleFactory;
+
     private Case caseToAnalise;
 
     double basePropability;
@@ -32,19 +36,22 @@ public class MatrixGenerator {
     public Equation generateEquation(){
         MatrixCompatible[][] matrixA = matrixCompatibleFactory.createMatrix(numberOfEquations,numberOfEquations);
         MatrixCompatible[] vectorB = matrixCompatibleFactory.createArray(numberOfEquations);
-
+        SparseFieldMatrix<DoubleComp> sparseFieldMatrix = new SparseFieldMatrix<>(new DoubleComp(),numberOfEquations,numberOfEquations);
+        SparseFieldVector<DoubleComp> sparseFieldVector = new SparseFieldVector<>(new DoubleComp(),numberOfEquations);
         for(int i = 0 ; i<vectorB.length-1; i++){
             vectorB[i] =  matrixCompatibleFactory.createWithNominator(0D);
+            sparseFieldVector.setEntry(i,new DoubleComp(0D));
         }
-            vectorB[vectorB.length-1] = matrixCompatibleFactory.createWithNominator(1D);
+        vectorB[vectorB.length-1] = matrixCompatibleFactory.createWithNominator(1D);
+        sparseFieldVector.setEntry(sparseFieldVector.getDimension()-1,new DoubleComp(1D));
 
         for(int i = 0; i< matrixA.length; i++){
             for(int j = 0; j<matrixA.length; j++){
                 matrixA[i][j] = generateValue(i,j);
+                sparseFieldMatrix.addToEntry(i,j,(DoubleComp)generateValue(i,j));
             }
         }
-
-        return new Equation<>(new MyMatrix<>((DoubleComp[][]) matrixA),vectorB,null);
+        return new Equation<>(new MyMatrix<>((DoubleComp[][]) matrixA),vectorB,null,sparseFieldMatrix,sparseFieldVector);
     }
 
     private MatrixCompatible generateValue(int i, int j){
