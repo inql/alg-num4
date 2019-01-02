@@ -112,42 +112,6 @@ public class GaussImpl {
 
     }
 
-    public MatrixCompatible[] jacobian(MatrixCompatible[] vectorB, double precision){
-
-        int n = vectorB.length;
-        MatrixCompatible[] vectorX = matrixCompatibleFactory.createArray(n);
-        MatrixCompatible[] prevVectorX = matrixCompatibleFactory.createArray(n);
-
-        for (int i = 0; i < n; i++)
-        {
-            vectorX[i] = new DoubleComp(0);
-            prevVectorX[i] = new DoubleComp(0);
-        }
-
-        boolean isPrecisionReached = false;
-        while (!isPrecisionReached)
-        {
-            for (int i =0 ; i< n; i++)
-            {
-                vectorX[i] = vectorB[i];
-                for (int j = 0; j < n; j++)
-                {
-                    if (i != j)
-                        vectorX[i] = dataOperation.subtract(vectorX[i], dataOperation.multiply(myMatrix.getValue(i,j),  prevVectorX[j]));
-                }
-                vectorX[i] = dataOperation.divide(vectorX[i], myMatrix.getValue(i,i));
-            }
-            if (calculateAbsoluteError(vectorX,prevVectorX) < precision)
-                isPrecisionReached = true;
-
-            for (int x =0 ; x < n; x++) {
-                prevVectorX[x] = vectorX[x];
-            }
-        }
-
-        return vectorX;
-    }
-
     public MatrixCompatible[] gaussSeidel(MatrixCompatible[] vectorB, double precision){
 
         int n = vectorB.length;
@@ -188,11 +152,6 @@ public class GaussImpl {
     }
 
     private Double calculateAbsoluteError(MatrixCompatible[] vectorX, MatrixCompatible[] prevVectorX){
-//        MatrixCompatible absoluteError = matrixCompatibleFactory.createWithNominator(0D);
-//        for(int i = 0;i < vectorX.length; i++){
-//            absoluteError = dataOperation.add(absoluteError,dataOperation.subtract(vectorX[i],prevVectorX[myMatrix.rows[i]]));
-//        }
-//        return Math.abs(absoluteError.getDoubleValue())/ (double) vectorX.length;
         double maxAbsoluteError = Math.abs(dataOperation.subtract(vectorX[0],prevVectorX[myMatrix.rows[0]]).getDoubleValue());
         for(int i = 0; i<vectorX.length; i++){
             double temp = Math.abs(dataOperation.subtract(vectorX[i],prevVectorX[myMatrix.rows[i]]).getDoubleValue());

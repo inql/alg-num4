@@ -2,6 +2,7 @@ package ug.pprotocols.matrix;
 
 import org.apache.commons.math3.linear.SparseFieldMatrix;
 import org.apache.commons.math3.linear.SparseFieldVector;
+import ug.pprotocols.Type;
 import ug.pprotocols.datatypes.DataType;
 import ug.pprotocols.datatypes.DoubleComp;
 import ug.pprotocols.datatypes.MatrixCompatible;
@@ -33,13 +34,17 @@ public class MatrixGenerator {
     }
 
 
-    public Equation generateEquation(){
-        MatrixCompatible[][] matrixA = matrixCompatibleFactory.createMatrix(numberOfEquations,numberOfEquations);
-        MatrixCompatible[] vectorB = matrixCompatibleFactory.createArray(numberOfEquations);
+    public Equation generateEquation(Type equationType){
+        if(equationType!=Type.LIBRARY_SPARSE){
+            MatrixCompatible[][] matrixA = matrixCompatibleFactory.createMatrix(numberOfEquations,numberOfEquations);
+            MatrixCompatible[] vectorB = matrixCompatibleFactory.createArray(numberOfEquations);
+            for(int i = 0 ; i<vectorB.length-1; i++){
+                vectorB[i] =  matrixCompatibleFactory.createWithNominator(0D);
+            }
+        }
         SparseFieldMatrix<DoubleComp> sparseFieldMatrix = new SparseFieldMatrix<>(new DoubleComp(),numberOfEquations,numberOfEquations);
         SparseFieldVector<DoubleComp> sparseFieldVector = new SparseFieldVector<>(new DoubleComp(),numberOfEquations);
-        for(int i = 0 ; i<vectorB.length-1; i++){
-            vectorB[i] =  matrixCompatibleFactory.createWithNominator(0D);
+        for(int i = 0 ; i<sparseFieldVector.getDimension()-1; i++){
             sparseFieldVector.setEntry(i,new DoubleComp(0D));
         }
         vectorB[vectorB.length-1] = matrixCompatibleFactory.createWithNominator(1D);
