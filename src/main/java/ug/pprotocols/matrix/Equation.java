@@ -1,7 +1,6 @@
 package ug.pprotocols.matrix;
 
-import org.apache.commons.math3.linear.SparseFieldMatrix;
-import org.apache.commons.math3.linear.SparseFieldVector;
+import org.apache.commons.math3.linear.*;
 import ug.pprotocols.ChoiceType;
 import ug.pprotocols.Type;
 import ug.pprotocols.algorithm.GaussImpl;
@@ -68,6 +67,9 @@ public class Equation<T extends MatrixCompatible> {
                 this.vectorXGS = gauss.gaussSeidel(vectorB,type.getPrecision());
                 setNewVectorB(matrixA,this.vectorXGS);
                 return this.vectorXGS;
+            case LIBRARY_SPARSE:
+                FieldLUDecomposition<DoubleComp> solver = new FieldLUDecomposition<>(sparseFieldMatrix);
+                System.out.println(Arrays.toString(solver.getSolver().solve(sparseFieldVector).toArray()));
         }
         return null;
     }

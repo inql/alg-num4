@@ -49,6 +49,10 @@ public enum Type {
         public String toString(){
             return "GAUSS_SEIDEL_MINUS14";
         }
+    },
+    LIBRARY_SPARSE(0D){
+        @Override
+        public String toString() {return "LIBRARY_SPARSE";}
     };
 
     private final double precision;

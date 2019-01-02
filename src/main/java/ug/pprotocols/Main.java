@@ -6,6 +6,7 @@ import org.apache.commons.math3.linear.SparseRealMatrix;
 import ug.pprotocols.datatypes.DoubleComp;
 import ug.pprotocols.datatypes.MatrixCompatible;
 import ug.pprotocols.matrix.Case;
+import ug.pprotocols.matrix.Equation;
 import ug.pprotocols.matrix.MatrixGenerator;
 import ug.pprotocols.tests.AggregatedResults;
 import ug.pprotocols.tests.ResultGenerator;
@@ -40,7 +41,9 @@ public class Main {
 //            e.printStackTrace();
 //        }
         MatrixGenerator matrixGenerator = new MatrixGenerator(new Case(0,0,3));
-        System.out.println(matrixGenerator.generateEquation());
+        Equation equation = matrixGenerator.generateEquation();
+        System.out.println(Arrays.toString(equation.evaluate(Type.GAUSS_SPARSE)));
+        equation.evaluate(Type.LIBRARY_SPARSE);
     }
 
     public static Map<Type, Map<Integer, AggregatedResults>> generateCsv() {
