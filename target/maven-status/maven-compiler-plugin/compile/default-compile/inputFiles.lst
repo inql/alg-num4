@@ -4,7 +4,6 @@
 /home/inql/IdeaProjects/alg-num4/src/main/java/ug/pprotocols/matrix/MyMatrix.java
 /home/inql/IdeaProjects/alg-num4/src/main/java/ug/pprotocols/matrix/MatrixGenerator.java
 /home/inql/IdeaProjects/alg-num4/src/main/java/ug/pprotocols/matrix/Equation.java
-/home/inql/IdeaProjects/alg-num4/src/main/java/ug/pprotocols/algorithm/State.java
 /home/inql/IdeaProjects/alg-num4/src/main/java/ug/pprotocols/algorithm/GaussImpl.java
 /home/inql/IdeaProjects/alg-num4/src/main/java/ug/pprotocols/ChoiceType.java
 /home/inql/IdeaProjects/alg-num4/src/main/java/ug/pprotocols/tests/ResultGenerator.java
@@ -16,5 +15,4 @@
 /home/inql/IdeaProjects/alg-num4/src/main/java/ug/pprotocols/operations/DoubleOperation.java
 /home/inql/IdeaProjects/alg-num4/src/main/java/ug/pprotocols/datatypes/DataType.java
 /home/inql/IdeaProjects/alg-num4/src/main/java/ug/pprotocols/datatypes/MatrixCompatibleFactory.java
-/home/inql/IdeaProjects/alg-num4/src/main/java/ug/pprotocols/algorithm/Mcarlo.java
 /home/inql/IdeaProjects/alg-num4/src/main/java/ug/pprotocols/tests/Results.java

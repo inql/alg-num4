@@ -43,8 +43,6 @@ public class ResultGenerator {
                 testScope.keySet()) {
             System.out.println(agentsNumber);
             matrixGenerator = new MatrixGenerator(new Case(0,0,agentsNumber)); //yes\no voters doesnt matter in that case
-            MatrixCompatible[] monteCarloValues;
-            monteCarloValues = null;
             for (Type type :
                         testsResults.keySet()) {
                 AggregatedResults aggregatedResults = new AggregatedResults();
@@ -78,23 +76,42 @@ public class ResultGenerator {
     }
 
     @SuppressWarnings("unchecked")
-    private Double calculateAbsoluteErrorAverage(MatrixCompatible[] mCarloResultVector, MatrixCompatible[] calculatedVector, Equation equation){
+    private Double calculateAbsoluteErrorAverage(MatrixCompatible[] goldenVector, MatrixCompatible[] calculatedVector, Equation equation){
         MatrixCompatible absoluteError = matrixCompatibleFactory.createWithNominator(0D);
-        for(int i = 0; i<mCarloResultVector.length; i++){
-            absoluteError = dataOperation.add(absoluteError,dataOperation.subtract(mCarloResultVector[i],calculatedVector[equation.getMatrixA().rows[i]]));
+        if(equation.getMatrixA()!=null){
+            for(int i = 0; i<goldenVector.length; i++){
+                absoluteError = dataOperation.add(absoluteError,dataOperation.subtract(goldenVector[i],calculatedVector[equation.getMatrixA().rows[i]]));
+            }
         }
-        return Math.abs(absoluteError.getDoubleValue())/ (double) mCarloResultVector.length;
+        else{
+            for(int i = 0; i<goldenVector.length; i++){
+                absoluteError = dataOperation.add(absoluteError,dataOperation.subtract(goldenVector[i],calculatedVector[i]));
+            }
+        }
+
+        return Math.abs(absoluteError.getDoubleValue())/ (double) goldenVector.length;
     }
 
 
 
     @SuppressWarnings("unchecked")
     private Double calculateAbsoluteErrorMax(MatrixCompatible[] goldenVector, MatrixCompatible[] calculatedVector, Equation equation){
-        double maxAbsoluteError = Math.abs(dataOperation.subtract(goldenVector[0],calculatedVector[equation.getMatrixA().rows[0]]).getDoubleValue());
-        for(int i = 0; i<goldenVector.length; i++){
-            double temp = Math.abs(dataOperation.subtract(goldenVector[i],calculatedVector[equation.getMatrixA().rows[i]]).getDoubleValue());
-            if (temp > maxAbsoluteError)
-                maxAbsoluteError = temp;
+        double maxAbsoluteError;
+        if(equation.getMatrixA()!=null){
+            maxAbsoluteError = Math.abs(dataOperation.subtract(goldenVector[0],calculatedVector[equation.getMatrixA().rows[0]]).getDoubleValue());
+            for(int i = 0; i<goldenVector.length; i++){
+                double temp = Math.abs(dataOperation.subtract(goldenVector[i],calculatedVector[equation.getMatrixA().rows[i]]).getDoubleValue());
+                if (temp > maxAbsoluteError)
+                    maxAbsoluteError = temp;
+            }
+        }
+        else{
+            maxAbsoluteError = Math.abs(dataOperation.subtract(goldenVector[0],calculatedVector[0]).getDoubleValue());
+            for(int i = 0; i<goldenVector.length; i++){
+                double temp = Math.abs(dataOperation.subtract(goldenVector[i],calculatedVector[i]).getDoubleValue());
+                if (temp > maxAbsoluteError)
+                    maxAbsoluteError = temp;
+            }
         }
         return maxAbsoluteError;
     }
