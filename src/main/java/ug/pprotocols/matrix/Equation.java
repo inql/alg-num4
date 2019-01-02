@@ -16,23 +16,25 @@ public class Equation<T extends MatrixCompatible> {
 
     private MyMatrix<T> matrixA;
     public SparseFieldMatrix<DoubleComp> sparseFieldMatrix;
-    public SparseFieldVector<DoubleComp> sparseFieldVector;
+    public SparseFieldMatrix<DoubleComp> sparseFieldVector;
     private MatrixCompatible[] vectorB;
     private MatrixCompatible[] vectorXGauss;
     private MatrixCompatible[] vectorXGaussSparse;
     private MatrixCompatible[] vectorXGS;
-    private FieldVector<DoubleComp> vectorSparse;
+    private FieldMatrix<DoubleComp> vectorSparse;
     private MatrixCompatible[] newVectorB;
     private GaussImpl gauss;
+    private FieldLUDecomposition<DoubleComp> solver;
 
     public Equation(MyMatrix<T> matrixA, MatrixCompatible[] vectorB, MatrixCompatible vectorX) {
         this.matrixA = matrixA;
         this.vectorB = vectorB;
     }
 
-    public Equation(SparseFieldMatrix<DoubleComp> sparseFieldMatrix, SparseFieldVector<DoubleComp> sparseFieldVector) {
+    public Equation(SparseFieldMatrix<DoubleComp> sparseFieldMatrix, SparseFieldMatrix<DoubleComp> sparseFieldVector) {
         this.sparseFieldMatrix = sparseFieldMatrix;
         this.sparseFieldVector = sparseFieldVector;
+        solver = new FieldLUDecomposition<>(sparseFieldMatrix);
     }
 
     @Override
@@ -41,7 +43,7 @@ public class Equation<T extends MatrixCompatible> {
                 "matrixA=\n" + matrixA +
                 ", \nvectorB=\n" + Arrays.deepToString(vectorB) + "\n" +
                 "sparse matrixA=\n"+sparseFieldMatrix + "\n" +
-                "sparse vectorB=\n"+ Arrays.toString(sparseFieldVector.toArray());
+                "sparse vectorB=\n"+ (sparseFieldVector);
     }
 
     public MatrixCompatible[] evaluate(Type type){
@@ -62,11 +64,10 @@ public class Equation<T extends MatrixCompatible> {
                 setNewVectorB(matrixA,this.vectorXGS);
                 return this.vectorXGS;
             case LIBRARY_SPARSE:
-                this.vectorB = sparseFieldVector.toArray();
-                FieldLUDecomposition<DoubleComp> solver = new FieldLUDecomposition<>(sparseFieldMatrix);
+                this.vectorB = sparseFieldVector.getColumnVector(0).toArray();
                 this.vectorSparse = solver.getSolver().solve(sparseFieldVector);
-                this.newVectorB = sparseFieldMatrix.preMultiply(vectorSparse).toArray();
-                return vectorSparse.toArray();
+                this.newVectorB = sparseFieldMatrix.multiply(vectorSparse).getColumn(0);
+                return vectorSparse.getColumn(0);
         }
         return null;
     }

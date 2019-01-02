@@ -52,11 +52,11 @@ public class MatrixGenerator {
         }
         else{
             SparseFieldMatrix<DoubleComp> sparseFieldMatrix = new SparseFieldMatrix<>(new DoubleComp(),numberOfEquations,numberOfEquations);
-            SparseFieldVector<DoubleComp> sparseFieldVector = new SparseFieldVector<>(new DoubleComp(),numberOfEquations);
-            for(int i = 0 ; i<sparseFieldVector.getDimension()-1; i++){
-                sparseFieldVector.setEntry(i,new DoubleComp(0D));
+            SparseFieldMatrix<DoubleComp> sparseFieldVector = new SparseFieldMatrix<>(new DoubleComp(),numberOfEquations,1);
+            for(int i = 0 ; i<sparseFieldVector.getRowDimension()-1; i++){
+                sparseFieldVector.addToEntry(i,0,new DoubleComp(0D));
             }
-            sparseFieldVector.setEntry(sparseFieldVector.getDimension()-1,new DoubleComp(1D));
+            sparseFieldVector.addToEntry(sparseFieldVector.getRowDimension()-1,0,new DoubleComp(1D));
 
             for(int i = 0; i< sparseFieldMatrix.getRowDimension(); i++){
                 for(int j = 0; j<sparseFieldMatrix.getColumnDimension(); j++){
