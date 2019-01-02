@@ -168,7 +168,7 @@ public class GaussImpl {
                 vectorX[i] = vectorB[i];
                 for (int j = 0; j < i; j++)
                 {
-                    vectorX[i] = dataOperation.subtract(vectorX[i], dataOperation.multiply(myMatrix.getValue(i, j), prevVectorX[j]));
+                    vectorX[i] = dataOperation.subtract(vectorX[i], dataOperation.multiply(myMatrix.getValue(i, j), vectorX[j]));
                 }
                 for (int j = i+1; j < n; j++)
                 {
