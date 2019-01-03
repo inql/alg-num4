@@ -10,6 +10,7 @@ import ug.pprotocols.matrix.MatrixGenerator;
 import ug.pprotocols.operations.DataOperation;
 import ug.pprotocols.operations.DoubleOperation;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -62,9 +63,9 @@ public class ResultGenerator {
                             calculateAbsoluteErrorMax(equationToSolve.getVectorB(),
                                     equationToSolve.getNewVectorB(),equationToSolve),
                                     executionTimeInMilliSeconds,
-                                    generateTimeInMilliSeconds,
                                     calculateAbsoluteErrorAverage(equationToSolve.getVectorB(),
-                                            equationToSolve.getNewVectorB(),equationToSolve)));
+                                            equationToSolve.getNewVectorB(),equationToSolve),
+                            generateTimeInMilliSeconds));
                     }
             aggregatedResults.divideByExecutionCount();
             testsResults.get(type).put(agentsNumber,aggregatedResults);

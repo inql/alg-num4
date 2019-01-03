@@ -1,5 +1,6 @@
 package ug.pprotocols.matrix;
 
+import org.apache.commons.math3.linear.MatrixUtils;
 import org.apache.commons.math3.linear.SparseFieldMatrix;
 import org.apache.commons.math3.linear.SparseFieldVector;
 import ug.pprotocols.Type;
@@ -35,7 +36,23 @@ public class MatrixGenerator {
 
 
     public Equation generateEquation(Type equationType){
-        if(equationType!=Type.LIBRARY_SPARSE){
+        if(equationType==Type.LIBRARY_SPARSE){
+            SparseFieldMatrix<DoubleComp> sparseFieldMatrix = new SparseFieldMatrix<>(new DoubleComp(0D),numberOfEquations,numberOfEquations);
+            SparseFieldMatrix<DoubleComp> sparseFieldVector = new SparseFieldMatrix<>(new DoubleComp(0D),numberOfEquations,1);
+            for(int i = 0 ; i<sparseFieldVector.getRowDimension()-1; i++){
+                sparseFieldVector.setEntry(i,0,new DoubleComp(0D));
+            }
+            sparseFieldVector.setEntry(sparseFieldVector.getRowDimension()-1,0,new DoubleComp(1D));
+
+            for(int i = 0; i< sparseFieldMatrix.getRowDimension(); i++){
+                for(int j = 0; j<sparseFieldMatrix.getColumnDimension(); j++){
+                    sparseFieldMatrix.setEntry(i,j,(DoubleComp)generateValue(i,j));
+                }
+            }
+            return new Equation<>(sparseFieldMatrix,sparseFieldVector);
+
+        }
+        else{
             MatrixCompatible[][] matrixA = matrixCompatibleFactory.createMatrix(numberOfEquations,numberOfEquations);
             MatrixCompatible[] vectorB = matrixCompatibleFactory.createArray(numberOfEquations);
             for(int i = 0 ; i<vectorB.length-1; i++){
@@ -50,28 +67,12 @@ public class MatrixGenerator {
             }
             return new Equation<>(new MyMatrix<>((DoubleComp[][]) matrixA),vectorB,null);
         }
-        else{
-            SparseFieldMatrix<DoubleComp> sparseFieldMatrix = new SparseFieldMatrix<>(new DoubleComp(),numberOfEquations,numberOfEquations);
-            SparseFieldMatrix<DoubleComp> sparseFieldVector = new SparseFieldMatrix<>(new DoubleComp(),numberOfEquations,1);
-            for(int i = 0 ; i<sparseFieldVector.getRowDimension()-1; i++){
-                sparseFieldVector.addToEntry(i,0,new DoubleComp(0D));
-            }
-            sparseFieldVector.addToEntry(sparseFieldVector.getRowDimension()-1,0,new DoubleComp(1D));
-
-            for(int i = 0; i< sparseFieldMatrix.getRowDimension(); i++){
-                for(int j = 0; j<sparseFieldMatrix.getColumnDimension(); j++){
-                    sparseFieldMatrix.addToEntry(i,j,(DoubleComp)generateValue(i,j));
-                }
-            }
-            return new Equation<>(sparseFieldMatrix,sparseFieldVector);
-        }
 
     }
 
     private MatrixCompatible generateValue(int i, int j){
         Case currentCaseRow = indexToKey.get(i);
         Case currentCaseColumn = indexToKey.get(j);
-
 
         if(currentCaseRow.getYesVoters() == agentsCount && currentCaseRow.getNoVoters() ==0 && i == j)
             return matrixCompatibleFactory.createWithNominator(1D);

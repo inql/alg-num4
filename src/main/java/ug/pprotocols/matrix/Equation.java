@@ -21,7 +21,7 @@ public class Equation<T extends MatrixCompatible> {
     private MatrixCompatible[] vectorXGauss;
     private MatrixCompatible[] vectorXGaussSparse;
     private MatrixCompatible[] vectorXGS;
-    private FieldMatrix<DoubleComp> vectorSparse;
+    private FieldMatrix<DoubleComp> vectorXLibSparse;
     private MatrixCompatible[] newVectorB;
     private GaussImpl gauss;
     private FieldLUDecomposition<DoubleComp> solver;
@@ -65,9 +65,9 @@ public class Equation<T extends MatrixCompatible> {
                 return this.vectorXGS;
             case LIBRARY_SPARSE:
                 this.vectorB = sparseFieldVector.getColumnVector(0).toArray();
-                this.vectorSparse = solver.getSolver().solve(sparseFieldVector);
-                this.newVectorB = sparseFieldMatrix.multiply(vectorSparse).getColumn(0);
-                return vectorSparse.getColumn(0);
+                this.vectorXLibSparse = solver.getSolver().solve(sparseFieldVector);
+                this.newVectorB = sparseFieldMatrix.multiply(vectorXLibSparse).getColumn(0);
+                return vectorXLibSparse.getColumn(0);
         }
         return null;
     }
