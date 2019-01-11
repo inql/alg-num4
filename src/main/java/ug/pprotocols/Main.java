@@ -38,22 +38,8 @@ public class Main {
         ApproximationGenerator ag = new ApproximationGenerator(results);
         Map<Type,double[]> approxResults = ag.gen();
         ag.putFunctions(approxResults);
-        for (Type type : results.keySet())
-        {
-            for (int i : results.get(type).keySet())
-            {
-                double[] pom = approxResults.get(type);
-                double temp = 0.0;
-                for (int w =0; w < pom.length; w++)
-                {
-                   temp += ApproximationGenerator.pow(ApproximationGenerator.getEquationNumber(i), pom.length - w - 1) * pom[w];
-                }
-                System.out.println(type + ", " + ApproximationGenerator.getEquationNumber(i));
-                System.out.println("wartosc = " + temp);
-                System.out.println("Roznica od wartosci z resultow " +  Math.abs(results.get(type).get(i).getExecutionTime()-temp));
+        ag.findDifferences(approxResults);
 
-            }
-        }
 
     }
 
@@ -61,7 +47,7 @@ public class Main {
 
         Map<Integer, Integer> testScope = new HashMap<Integer, Integer>() {{
         }};
-        for(int i =3; i<=16; i++){
+        for(int i =3; i<=20; i++){
             testScope.put(i,10);
         }
 

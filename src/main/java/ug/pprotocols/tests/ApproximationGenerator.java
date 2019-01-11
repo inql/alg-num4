@@ -41,6 +41,26 @@ public class ApproximationGenerator {
 
     }
 
+    public void findDifferences(Map<Type,double[]> approxResults)
+    {
+        for (Type type : results.keySet())
+        {
+            for (int i : results.get(type).keySet())
+            {
+                double[] pom = approxResults.get(type);
+                double temp = 0.0;
+                for (int w =0; w < pom.length; w++)
+                {
+                    temp += ApproximationGenerator.pow(ApproximationGenerator.getEquationNumber(i), pom.length - w - 1) * pom[w];
+                }
+                System.out.println(type + ", " + ApproximationGenerator.getEquationNumber(i));
+                System.out.println("wartosc = " + temp);
+                System.out.println("Roznica od wartosci z resultow " +  Math.abs(results.get(type).get(i).getExecutionTime()-temp));
+
+            }
+        }
+    }
+
 
     public double[] generateValue(Type type)
     {
