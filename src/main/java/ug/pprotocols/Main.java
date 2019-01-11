@@ -1,25 +1,18 @@
 package ug.pprotocols;
 
-import org.apache.commons.math3.Field;
-import org.apache.commons.math3.linear.SparseFieldMatrix;
-import org.apache.commons.math3.linear.SparseRealMatrix;
-import ug.pprotocols.datatypes.DoubleComp;
-import ug.pprotocols.datatypes.MatrixCompatible;
-import ug.pprotocols.matrix.Case;
-import ug.pprotocols.matrix.Equation;
-import ug.pprotocols.matrix.MatrixGenerator;
+import ug.pprotocols.algorithm.Approximation;
 import ug.pprotocols.tests.AggregatedResults;
 import ug.pprotocols.tests.ResultGenerator;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Main {
 
     public static void main(String[] args) {
-
+    /*
         Map<Type, Map<Integer, AggregatedResults>> results = generateCsv();
 
         try {
@@ -40,13 +33,33 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        */
+
+        double[] arguments = { 0.0,0.25,0.5,0.75,1.0 };
+        double[] values = { 1.0,1.284,1.6487,2.117,2.7183 };
+
+        Approximation apprGaussSeidel = new Approximation(arguments, values, Type.GAUSS_SEIDEL_MINUS10);
+        apprGaussSeidel.Calculate();
+
+        double[] something = apprGaussSeidel.getResults();
+
+        for (int i = 0; i < something.length; i++)
+        {
+            System.out.println(something[i]);
+        }
+        System.out.println("Done");
+        // Wyniki odrobine się roznia od tych w slajdach z wykladu - dobrze vs niedobrze?
+        // na wykladzie jest :
+        // a0 = 1.00051
+        // a1 = 0.8647
+        // a2 = 0.8432
     }
 
     public static Map<Type, Map<Integer, AggregatedResults>> generateCsv() {
 
         Map<Integer, Integer> testScope = new HashMap<Integer, Integer>() {{
         }};
-        for(int i =3; i<=200; i++){
+        for(int i =3; i<=10; i++){
             testScope.put(i,100-(i*3));
         }
 
