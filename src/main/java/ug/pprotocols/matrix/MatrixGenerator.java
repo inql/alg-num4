@@ -153,6 +153,7 @@ public class MatrixGenerator {
                 indexToKey.put(k++,new Case(i,j,agentsCount));
             }
         }
+        System.out.println(agentsCount + " ilosc rownan: "+indexToKey.size());
         return indexToKey;
     }
 

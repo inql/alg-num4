@@ -12,28 +12,28 @@ import java.util.Map;
 public class Main {
 
     public static void main(String[] args) {
-    /*
+
         Map<Type, Map<Integer, AggregatedResults>> results = generateCsv();
 
-        try {
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("wyniki.csv"));
-            bufferedWriter.write("NOTE:,For agents count higher than 15, montecarlo isnt generated\n");
-            for (Type type :
-                    results.keySet()) {
-                bufferedWriter.write("\n\n");
-                bufferedWriter.write(type.toString() + "\n");
-                bufferedWriter.write("liczba agentów,błąd bezwgledny(max),błąd bezwzględny(średnia),czas wykonania(generowanie),czas wykonania(obliczanie),ilość wykonań,\n");
-                for (Integer agentsNum :
-                        new TreeSet<>(results.get(type).keySet())) {
-                    bufferedWriter.write("\n"+agentsNum + "," + results.get(type).get(agentsNum).toString());
-                }
+//        try {
+//            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("wyniki.csv"));
+//            bufferedWriter.write("NOTE:,For agents count higher than 15, montecarlo isnt generated\n");
+//            for (Type type :
+//                    results.keySet()) {
+//                bufferedWriter.write("\n\n");
+//                bufferedWriter.write(type.toString() + "\n");
+//                bufferedWriter.write("liczba agentów,błąd bezwgledny(max),błąd bezwzględny(średnia),czas wykonania(generowanie),czas wykonania(obliczanie),ilość wykonań,\n");
+//                for (Integer agentsNum :
+//                        new TreeSet<>(results.get(type).keySet())) {
+//                    bufferedWriter.write("\n"+agentsNum + "," + results.get(type).get(agentsNum).toString());
+//                }
+//
+//            }
+//            bufferedWriter.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
-            }
-            bufferedWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        */
 
         double[] arguments = { 0.0,0.25,0.5,0.75,1.0 };
         double[] values = { 1.0,1.284,1.6487,2.117,2.7183 };
@@ -71,5 +71,15 @@ public class Main {
 
         ResultGenerator resultGenerator = new ResultGenerator(testScope);
         return resultGenerator.doTests(testCases,100000);
+    }
+
+    public static int getEquationNumber(int agentsNumber){
+        int result = 0;
+        for(int i=0; i<=agentsNumber; i++){
+            for(int j =0; j<=agentsNumber-i; j++){
+                result++;
+            }
+        }
+        return result;
     }
 }

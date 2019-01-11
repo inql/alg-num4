@@ -42,7 +42,6 @@ public class ResultGenerator {
 
         for (Integer agentsNumber :
                 testScope.keySet()) {
-            System.out.println(agentsNumber);
             matrixGenerator = new MatrixGenerator(new Case(0,0,agentsNumber)); //yes\no voters doesnt matter in that case
             for (Type type :
                         testsResults.keySet()) {
@@ -53,7 +52,6 @@ public class ResultGenerator {
                     Equation equationToSolve = matrixGenerator.generateEquation(type);
                     generateStop = System.nanoTime();
                     generateTimeInMilliSeconds = ((generateStop-generateStart)/1000000D);
-                    System.out.println(matrixGenerator.indexToKey.size());
                     //tutaj liczenie czasu dla obliczania
                     executionStart = System.nanoTime();
                     MatrixCompatible[] results = equationToSolve.evaluate(type);
