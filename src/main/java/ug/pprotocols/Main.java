@@ -46,12 +46,11 @@ public class Main {
                 double temp = 0.0;
                 for (int w =0; w < pom.length; w++)
                 {
-
                    temp += ApproximationGenerator.pow(ApproximationGenerator.getEquationNumber(i), pom.length - w - 1) * pom[w];
                 }
                 System.out.println(type + ", " + ApproximationGenerator.getEquationNumber(i));
                 System.out.println("wartosc = " + temp);
-               // System.out.println("Roznica od wartosci z resultow " +  Math.abs(results.get(type).get(i).getExecutionTime()-temp));
+                System.out.println("Roznica od wartosci z resultow " +  Math.abs(results.get(type).get(i).getExecutionTime()-temp));
 
             }
         }
@@ -62,8 +61,8 @@ public class Main {
 
         Map<Integer, Integer> testScope = new HashMap<Integer, Integer>() {{
         }};
-        for(int i =3; i<=15; i++){
-            testScope.put(i,2);
+        for(int i =3; i<=16; i++){
+            testScope.put(i,10);
         }
 
         Type[] types = Type.values();

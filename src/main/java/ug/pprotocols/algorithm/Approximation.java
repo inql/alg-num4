@@ -29,12 +29,14 @@ public class Approximation {
     public void calculate()
     {
         Equation eq = new Equation(matrix,vector, null);
-        MatrixCompatible[] result = eq.evaluate(Type.GAUSS_SPARSE); // Na sztywno jest gauss-sparse. Do zmiany?
+        MatrixCompatible[] result = eq.evaluate(Type.GAUSS_SEIDEL_MINUS10); // Na sztywno jest gauss-sparse. Do zmiany?
 
         results = new double[m+1];
+        int k = m;
         for (int i = 0; i < m+1; i++)
         {
-            results[i] = result[i].getDoubleValue();
+            results[i] = result[k].getDoubleValue();
+            k--;
         }
     }
 
@@ -49,6 +51,7 @@ public class Approximation {
 
         for (int k = 0; k < m*2+1; k++)
         {
+            s[k] = 0;
             for(int i = 0; i < arguments.length; i++)
             {
                 s[k] += Math.pow(arguments[i],k);
@@ -70,8 +73,10 @@ public class Approximation {
     {
         double[] res = new double[m+1];
 
+
         for (int k = 0; k < m+1; k++)
         {
+            res[k] = 0;
             for(int i = 0; i < arguments.length; i++)
             {
                 res[k] += values[i] * Math.pow(arguments[i],k);
