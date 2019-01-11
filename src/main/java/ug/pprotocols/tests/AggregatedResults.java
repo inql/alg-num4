@@ -25,6 +25,16 @@ public class AggregatedResults {
         this.results.absoluteErrorAverage/=(double)executionCount;
     }
 
+    public double getExecutionTime()
+    {
+        return results.solveExecutionTime;
+    }
+
+    public double getGenerationTime()
+    {
+        return results.generateExecutionTime;
+    }
+
     @Override
     public String toString() {
         return results.toString()+executionCount+",";

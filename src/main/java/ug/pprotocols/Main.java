@@ -2,6 +2,7 @@ package ug.pprotocols;
 
 import ug.pprotocols.algorithm.Approximation;
 import ug.pprotocols.tests.AggregatedResults;
+import ug.pprotocols.tests.ApproximationGenerator;
 import ug.pprotocols.tests.ResultGenerator;
 
 import java.util.Arrays;
@@ -34,25 +35,10 @@ public class Main {
 //            e.printStackTrace();
 //        }
 
+        ApproximationGenerator ag = new ApproximationGenerator(results);
+        ag.putFunctions(ag.gen());
 
-        double[] arguments = { 0.0,0.25,0.5,0.75,1.0 };
-        double[] values = { 1.0,1.284,1.6487,2.117,2.7183 };
 
-        Approximation apprGaussSeidel = new Approximation(arguments, values, Type.GAUSS_SEIDEL_MINUS10);
-        apprGaussSeidel.Calculate();
-
-        double[] something = apprGaussSeidel.getResults();
-
-        for (int i = 0; i < something.length; i++)
-        {
-            System.out.println(something[i]);
-        }
-        System.out.println("Done");
-        // Wyniki odrobine się roznia od tych w slajdach z wykladu - dobrze vs niedobrze?
-        // na wykladzie jest :
-        // a0 = 1.00051
-        // a1 = 0.8647
-        // a2 = 0.8432
     }
 
     public static Map<Type, Map<Integer, AggregatedResults>> generateCsv() {
@@ -73,13 +59,5 @@ public class Main {
         return resultGenerator.doTests(testCases,100000);
     }
 
-    public static int getEquationNumber(int agentsNumber){
-        int result = 0;
-        for(int i=0; i<=agentsNumber; i++){
-            for(int j =0; j<=agentsNumber-i; j++){
-                result++;
-            }
-        }
-        return result;
-    }
+
 }
