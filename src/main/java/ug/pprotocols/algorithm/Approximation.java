@@ -12,8 +12,8 @@ public class Approximation {
     private int m;
 
     private double results[];
-    private MyMatrix<DoubleComp> left;
-    private DoubleComp[] right;
+    private MyMatrix<DoubleComp> matrix;
+    private DoubleComp[] vector;
 
     public Approximation(double[] arguments, double[] values, Type type )
     {
@@ -22,13 +22,13 @@ public class Approximation {
             System.out.println("Wrong arguments");
         }
 
-        left = getLeft(arguments);
-        right = getRight(arguments,values);
+        matrix = getMatrix(arguments);
+        vector = getVector(arguments,values);
     }
 
     public void Calculate()
     {
-        Equation eq = new Equation(left,right, null);
+        Equation eq = new Equation(matrix,vector, null);
         MatrixCompatible[] result = eq.evaluate(Type.GAUSS_SPARSE); // Na sztywno jest gauss-sparse. Do zmiany?
 
         results = new double[m+1];
@@ -43,7 +43,7 @@ public class Approximation {
         return results;
     }
 
-    MyMatrix<DoubleComp> getLeft(double[] arguments)
+    private MyMatrix<DoubleComp> getMatrix(double[] arguments)
     {
         double[] s = new double[m*2+1];
 
@@ -66,7 +66,7 @@ public class Approximation {
 
     }
 
-    DoubleComp[] getRight(double[] arguments, double[] values)
+    private DoubleComp[] getVector(double[] arguments, double[] values)
     {
         double[] res = new double[m+1];
 
