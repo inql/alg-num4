@@ -47,16 +47,14 @@ public class ApproximationGenerator {
         double[] arguments = new double[results.get(type).size()];
         double[] values = new double[results.get(type).size()];
 
-        int k = 0;
         for (int i : results.get(type).keySet())
         {
-            arguments[k] = getEquationNumber(i);
-            values[k] = results.get(type).get(i).getExecutionTime();
-            k++;
+            arguments[i-3] = getEquationNumber(i);
+            values[i-3] = results.get(type).get(i).getExecutionTime();
         }
 
         Approximation appr = new Approximation(arguments, values, type);
-        appr.Calculate();
+        appr.calculate();
 
         return appr.getResults();
 
@@ -69,6 +67,19 @@ public class ApproximationGenerator {
                 result++;
             }
         }
+        return result;
+    }
+
+    public static double pow(double x, int power){
+
+        if(power<0)
+            return pow(1.0/x,power-1);
+
+        double result=1.0;
+
+        for(int i=0;i<power;i++)
+            result=x;
+
         return result;
     }
 

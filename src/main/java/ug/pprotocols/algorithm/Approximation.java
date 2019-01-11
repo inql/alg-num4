@@ -26,7 +26,7 @@ public class Approximation {
         vector = getVector(arguments,values);
     }
 
-    public void Calculate()
+    public void calculate()
     {
         Equation eq = new Equation(matrix,vector, null);
         MatrixCompatible[] result = eq.evaluate(Type.GAUSS_SPARSE); // Na sztywno jest gauss-sparse. Do zmiany?
