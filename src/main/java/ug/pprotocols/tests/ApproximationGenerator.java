@@ -62,7 +62,7 @@ public class ApproximationGenerator {
 
     }
 
-    public int getEquationNumber(int agentsNumber){
+    public static int getEquationNumber(int agentsNumber){
         int result = 0;
         for(int i=0; i<=agentsNumber; i++){
             for(int j =0; j<=agentsNumber-i; j++){

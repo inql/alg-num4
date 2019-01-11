@@ -1,6 +1,5 @@
 package ug.pprotocols;
 
-import ug.pprotocols.algorithm.Approximation;
 import ug.pprotocols.tests.AggregatedResults;
 import ug.pprotocols.tests.ApproximationGenerator;
 import ug.pprotocols.tests.ResultGenerator;
@@ -38,6 +37,23 @@ public class Main {
         ApproximationGenerator ag = new ApproximationGenerator(results);
         ag.putFunctions(ag.gen());
 
+        for (Type type : results.keySet())
+        {
+            for (int i : results.get(type).keySet())
+            {
+                double[] pom = ag.gen().get(type);
+                double temp = 0.0;
+                for (int w =0; w < pom.length; w++)
+                {
+
+                   temp += Math.pow(ApproximationGenerator.getEquationNumber(i), pom.length - w - 1) * pom[w];
+                }
+                System.out.println(type);
+                System.out.println("wartosc = " + temp);
+                System.out.println("Roznica od wartosci z resultow " +  Math.abs(results.get(type).get(i).getExecutionTime()-temp));
+
+            }
+        }
 
     }
 
