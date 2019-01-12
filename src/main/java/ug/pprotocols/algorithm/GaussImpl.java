@@ -125,11 +125,12 @@ public class GaussImpl {
         }
 
         boolean isPrecisionReached = false;
+        MatrixCompatible temp;
         while (!isPrecisionReached)
         {
             for (int i =0 ; i< n; i++)
             {
-                MatrixCompatible temp = new DoubleComp(0);
+                temp = new DoubleComp(0);
                 for (int j = 0; j < i; j++)
                 {
                     temp  = dataOperation.subtract(temp, dataOperation.multiply(myMatrix.getValue(i, j), vectorX[j]));
