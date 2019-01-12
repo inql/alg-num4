@@ -39,6 +39,7 @@ public class Main {
         Map<Type,double[]> approxResults = ag.gen();
         ag.putFunctions(approxResults);
         ag.findDifferences(approxResults);
+        ag.writeApproxToCsv(approxResults);
 
 
     }
@@ -47,8 +48,8 @@ public class Main {
 
         Map<Integer, Integer> testScope = new HashMap<Integer, Integer>() {{
         }};
-        for(int i =10; i<=21; i++){
-            testScope.put(i,10);
+        for(int i =15; i<=20; i++){
+            testScope.put(i,1);
         }
 
         Type[] types = Type.values();

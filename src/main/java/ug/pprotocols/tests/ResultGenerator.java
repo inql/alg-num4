@@ -36,7 +36,7 @@ public class ResultGenerator {
 
         long executionStart,executionStop;
         long generateStart,generateStop;
-        double executionTimeInMilliSeconds,generateTimeInMilliSeconds;
+        double executionTimeInSeconds,generateTimeInSeconds;
         MatrixGenerator matrixGenerator;
 
 
@@ -51,19 +51,19 @@ public class ResultGenerator {
                     generateStart = System.nanoTime();
                     Equation equationToSolve = matrixGenerator.generateEquation(type);
                     generateStop = System.nanoTime();
-                    generateTimeInMilliSeconds = ((generateStop-generateStart)/1000000D);
+                    generateTimeInSeconds = ((generateStop-generateStart)/1000000000D);
                     //tutaj liczenie czasu dla obliczania
                     executionStart = System.nanoTime();
                     MatrixCompatible[] results = equationToSolve.evaluate(type);
                     executionStop = System.nanoTime();
-                    executionTimeInMilliSeconds = ((executionStop-executionStart)/1000000D);
+                    executionTimeInSeconds = ((executionStop-executionStart)/1000000000D);
                     aggregatedResults.updateAggregatedResults(new Results(
                             calculateAbsoluteErrorMax(equationToSolve.getVectorB(),
                                     equationToSolve.getNewVectorB(),equationToSolve),
-                                    executionTimeInMilliSeconds,
+                                    executionTimeInSeconds,
                                     calculateAbsoluteErrorAverage(equationToSolve.getVectorB(),
                                             equationToSolve.getNewVectorB(),equationToSolve),
-                            generateTimeInMilliSeconds));
+                            generateTimeInSeconds));
                     }
             aggregatedResults.divideByExecutionCount();
             testsResults.get(type).put(agentsNumber,aggregatedResults);
