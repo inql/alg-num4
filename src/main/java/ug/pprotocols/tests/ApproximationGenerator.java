@@ -91,13 +91,13 @@ public class ApproximationGenerator {
     public void writeApproxToCsv(Map<Type,double[]> approxResults){
         try {
             Power power;
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("approxwyniki.csv"));
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("approxwyniki_"+mode.toString()+".csv"));
             for (Type type :
                     results.keySet()) {
                 double[] apprRes = new double[results.get(type).size()];
                 double[] progRes = new double[results.get(type).size()];
                 bufferedWriter.write("\n\n");
-                bufferedWriter.write(type.toString() + "\n");
+                bufferedWriter.write(type.toString() +","+ mode.toString()+"\n");
                 bufferedWriter.write("Współczynniki wielomianu:\n");
                 for(int i =0; i< approxResults.get(type).length; i++) {
 
