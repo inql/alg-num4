@@ -47,7 +47,7 @@ public class Main {
 
         Map<Integer, Integer> testScope = new HashMap<Integer, Integer>() {{
         }};
-        for(int i =3; i<=20; i++){
+        for(int i =10; i<=30; i++){
             testScope.put(i,10);
         }
 
