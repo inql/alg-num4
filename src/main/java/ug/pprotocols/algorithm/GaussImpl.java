@@ -129,7 +129,7 @@ public class GaussImpl {
         {
             for (int i =0 ; i< n; i++)
             {
-                vectorX[i] = vectorB[i];
+
                 for (int j = 0; j < i; j++)
                 {
                     vectorX[i] = dataOperation.subtract(vectorX[i], dataOperation.multiply(myMatrix.getValue(i, j), vectorX[j]));
@@ -138,14 +138,15 @@ public class GaussImpl {
                 {
                     vectorX[i] = dataOperation.subtract(vectorX[i], dataOperation.multiply(myMatrix.getValue(i, j), prevVectorX[j]));
                 }
+                vectorX[i] = dataOperation.add(vectorX[i], vectorB[i]);
                 vectorX[i] = dataOperation.divide(vectorX[i], myMatrix.getValue(i,i));
+                for (int x =0 ; x < n; x++) {
+                    prevVectorX[x] = vectorX[x];
+                }
             }
             if (calculateAbsoluteError(vectorX,prevVectorX) < precision)
                 isPrecisionReached = true;
 
-            for (int x =0 ; x < n; x++) {
-                prevVectorX[x] = vectorX[x];
-            }
         }
 
         return vectorX;
