@@ -122,8 +122,10 @@ public class ApproximationGenerator {
                 double[] highExec = approxResults.get(type);
                 BigDecimal highExecResult = new BigDecimal(0.0);
                 BigDecimal equationsCount = new BigDecimal(100000);
+                System.out.println("BEFORE");
                 for(int w =0; w<highExec.length; w++){
                     highExecResult = highExecResult.add(equationsCount.pow(highExec.length-w-1).multiply(BigDecimal.valueOf(highExec[w])));
+                    System.out.println(highExecResult);
                 }
                 bufferedWriter.write("Czas wykonania dla 100000:,"+highExecResult);
             }
