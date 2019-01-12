@@ -69,7 +69,6 @@ liczba agentów,błąd bezwgledny(max),błąd bezwzględny(średnia),czas wykona
 
 GAUSS_SEIDEL_MINUS10
 liczba agentów,błąd bezwgledny(max),błąd bezwzględny(średnia),czas wykonania(generowanie),czas wykonania(obliczanie),ilość wykonań,
-
 3,0.0,0.0,0.09763093406593407,0.48794765934065937,91,
 4,1.5011991649771517E-11,2.0015988866362054E-12,0.04084959090909091,1.4809608068181817,88,
 5,2.9626023856366146E-11,2.8215281467056762E-12,0.04923149411764706,3.1326439764705882,85,

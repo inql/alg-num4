@@ -69,7 +69,7 @@ public class ApproximationGenerator {
 
         for (int i : results.get(type).keySet())
         {
-            arguments[i-3] = getEquationNumber(i);
+            arguments[i-3] = i;
             values[i-3] = results.get(type).get(i).getExecutionTime();
         }
 

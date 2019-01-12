@@ -5,10 +5,10 @@ import ug.pprotocols.tests.AggregatedResults;
 import ug.pprotocols.tests.ApproximationGenerator;
 import ug.pprotocols.tests.ResultGenerator;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.*;
 
 public class Main {
 
@@ -16,24 +16,24 @@ public class Main {
 
         Map<Type, Map<Integer, AggregatedResults>> results = generateCsv();
 
-//        try {
-//            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("wyniki.csv"));
-//            bufferedWriter.write("NOTE:,For agents count higher than 15, montecarlo isnt generated\n");
-//            for (Type type :
-//                    results.keySet()) {
-//                bufferedWriter.write("\n\n");
-//                bufferedWriter.write(type.toString() + "\n");
-//                bufferedWriter.write("liczba agentów,błąd bezwgledny(max),błąd bezwzględny(średnia),czas wykonania(generowanie),czas wykonania(obliczanie),ilość wykonań,\n");
-//                for (Integer agentsNum :
-//                        new TreeSet<>(results.get(type).keySet())) {
-//                    bufferedWriter.write("\n"+agentsNum + "," + results.get(type).get(agentsNum).toString());
-//                }
-//
-//            }
-//            bufferedWriter.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("wyniki4.csv"));
+            bufferedWriter.write("NOTE:,For agents count higher than 15, montecarlo isnt generated\n");
+            for (Type type :
+                    results.keySet()) {
+                bufferedWriter.write("\n\n");
+                bufferedWriter.write(type.toString() + "\n");
+                bufferedWriter.write("liczba agentów,błąd bezwgledny(max),błąd bezwzględny(średnia),czas wykonania(generowanie),czas wykonania(obliczanie),ilość wykonań,\n");
+                for (Integer agentsNum :
+                        new TreeSet<>(results.get(type).keySet())) {
+                    bufferedWriter.write("\n"+agentsNum + "," + results.get(type).get(agentsNum).toString());
+                }
+
+            }
+            bufferedWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         ApproximationGenerator ag = new ApproximationGenerator(results);
         Map<Type,double[]> approxResults = ag.gen();
