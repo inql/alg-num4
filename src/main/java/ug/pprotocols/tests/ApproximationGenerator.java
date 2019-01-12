@@ -1,5 +1,6 @@
 package ug.pprotocols.tests;
 
+import org.apache.commons.math3.analysis.function.Power;
 import ug.pprotocols.Type;
 import ug.pprotocols.algorithm.Approximation;
 
@@ -43,6 +44,7 @@ public class ApproximationGenerator {
 
     public void findDifferences(Map<Type,double[]> approxResults)
     {
+        Power power;
         for (Type type : results.keySet())
         {
             for (int i : results.get(type).keySet())
@@ -51,7 +53,8 @@ public class ApproximationGenerator {
                 double temp = 0.0;
                 for (int w =0; w < pom.length; w++)
                 {
-                    temp += ApproximationGenerator.pow(ApproximationGenerator.getEquationNumber(i), pom.length - w - 1) * pom[w];
+                    power = new Power(pom.length-w-1);
+                    temp += (power.value(ApproximationGenerator.getEquationNumber(i)))*pom[w];
                 }
                 System.out.println(type + ", " + ApproximationGenerator.getEquationNumber(i));
                 System.out.println("wartosc = " + temp);
@@ -69,7 +72,7 @@ public class ApproximationGenerator {
 
         for (int i : results.get(type).keySet())
         {
-            arguments[i-3] = i;
+            arguments[i-3] = ApproximationGenerator.getEquationNumber(i);
             values[i-3] = results.get(type).get(i).getExecutionTime();
         }
 
@@ -89,20 +92,4 @@ public class ApproximationGenerator {
         }
         return result;
     }
-
-    public static double pow(double x, int power){
-
-        if(power<0)
-            return pow(1.0/x,power-1);
-
-        double result=1.0;
-
-        for(int i=0;i<power;i++)
-            result=x;
-
-        return result;
-    }
-
-
-
 }
