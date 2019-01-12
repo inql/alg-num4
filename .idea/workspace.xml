@@ -5,7 +5,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/approxwyniki_Execution.csv" beforeDir="false" afterPath="$PROJECT_DIR$/approxwyniki_Execution.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/approxwyniki_Preparation.csv" beforeDir="false" afterPath="$PROJECT_DIR$/approxwyniki_Preparation.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ug/pprotocols/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ug/pprotocols/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ug/pprotocols/tests/ApproximationGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ug/pprotocols/tests/ApproximationGenerator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wyniki.csv" beforeDir="false" afterPath="$PROJECT_DIR$/wyniki.csv" afterDir="false" />
@@ -23,7 +22,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/ug/pprotocols/tests/ResultGenerator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="587">
+            <state relative-caret-position="817">
               <caret line="58" column="35" selection-start-line="58" selection-start-column="35" selection-end-line="58" selection-end-column="35" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -39,8 +38,6 @@
               <caret line="84" column="47" selection-start-line="84" selection-start-column="47" selection-end-line="84" selection-end-column="47" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1175#1176#0" expanded="true" />
-                <element signature="e#1205#1206#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -49,7 +46,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/ug/pprotocols/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="434">
+            <state relative-caret-position="855">
               <caret line="54" column="28" selection-start-line="54" selection-start-column="28" selection-end-line="54" selection-end-column="28" />
             </state>
           </provider>
@@ -64,11 +61,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/ug/pprotocols/tests/ApproximationGenerator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="121" column="60" lean-forward="true" selection-start-line="121" selection-start-column="60" selection-end-line="121" selection-end-column="60" />
+            <state relative-caret-position="580">
+              <caret line="122" column="64" lean-forward="true" selection-start-line="122" selection-start-column="64" selection-end-line="122" selection-end-column="64" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -78,17 +75,15 @@
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/approxwyniki_Preparation.csv">
-          <provider selected="true" editor-type-id="csv-text-editor">
-            <state relative-caret-position="380">
-              <caret line="59" column="29" selection-start-line="59" selection-start-column="29" selection-end-line="59" selection-end-column="29" />
-            </state>
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1085" />
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/approxwyniki_Execution.csv">
-          <provider selected="true" editor-type-id="csv-text-editor">
-            <state relative-caret-position="-316" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1085" />
           </provider>
         </entry>
       </file>
@@ -97,10 +92,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="209">
               <caret line="21" column="18" selection-start-line="21" selection-start-column="18" selection-end-line="21" selection-end-column="18" />
-              <folding>
-                <element signature="e#786#787#0" expanded="true" />
-                <element signature="e#832#833#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -127,6 +118,9 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>addToEntry</find>
+      <find>getExecutionTime()</find>
+      <find>results.get(type).get(i).getExecutionTime()</find>
+      <find>results.get(type).get(agentsNum).getExecutionTime()</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -354,16 +348,19 @@
       <workItem from="1546460685071" duration="2414000" />
       <workItem from="1546542261726" duration="3594000" />
       <workItem from="1547235797055" duration="1475000" />
+      <workItem from="1547325478842" duration="13000" />
+      <workItem from="1547329121993" duration="793000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="22563000" />
+    <option name="totallyTimeSpent" value="23369000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1080" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1398079" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1430096" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -372,7 +369,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32935324" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49946696" weight="0.2" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49946696" visible="true" weight="0.2" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39900497" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -521,43 +518,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ug/pprotocols/tests/ResultGenerator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="587">
-          <caret line="58" column="35" selection-start-line="58" selection-start-column="35" selection-end-line="58" selection-end-column="35" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar!/org/apache/commons/math3/analysis/function/Power.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="21" column="18" selection-start-line="21" selection-start-column="18" selection-end-line="21" selection-end-column="18" />
-          <folding>
-            <element signature="e#786#787#0" expanded="true" />
-            <element signature="e#832#833#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wyniki.csv">
-      <provider editor-type-id="csv-text-editor">
-        <state relative-caret-position="986">
-          <caret line="58" column="78" selection-start-line="58" selection-start-column="78" selection-end-line="58" selection-end-column="78" />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wyniki4.csv">
-      <provider editor-type-id="csv-text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="23" selection-start-line="23" selection-start-column="23" selection-end-line="23" selection-end-column="23" />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ug/pprotocols/Swapper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -617,15 +577,37 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar:///usr/lib/jvm/java-1.8.0-openjdk-amd64/jre/lib/rt.jar!/java/math/BigDecimal.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="607" column="22" selection-start-line="607" selection-start-column="22" selection-end-line="607" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ug/pprotocols/tests/ResultGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="817">
+          <caret line="58" column="35" selection-start-line="58" selection-start-column="35" selection-end-line="58" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ug/pprotocols/algorithm/Approximation.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1444">
           <caret line="84" column="47" selection-start-line="84" selection-start-column="47" selection-end-line="84" selection-end-column="47" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1175#1176#0" expanded="true" />
-            <element signature="e#1205#1206#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ug/pprotocols/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="855">
+          <caret line="54" column="28" selection-start-line="54" selection-start-column="28" selection-end-line="54" selection-end-column="28" />
         </state>
       </provider>
     </entry>
@@ -636,40 +618,55 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar:///usr/lib/jvm/java-1.8.0-openjdk-amd64/jre/lib/rt.jar!/java/math/BigDecimal.class">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar!/org/apache/commons/math3/analysis/function/Power.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="607" column="22" selection-start-line="607" selection-start-column="22" selection-end-line="607" selection-end-column="22" />
+        <state relative-caret-position="209">
+          <caret line="21" column="18" selection-start-line="21" selection-start-column="18" selection-end-line="21" selection-end-column="18" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/approxwyniki_Execution.csv">
-      <provider selected="true" editor-type-id="csv-text-editor">
-        <state relative-caret-position="-316" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/approxwyniki_Preparation.csv">
-      <provider selected="true" editor-type-id="csv-text-editor">
-        <state relative-caret-position="380">
-          <caret line="59" column="29" selection-start-line="59" selection-start-column="29" selection-end-line="59" selection-end-column="29" />
+    <entry file="file://$PROJECT_DIR$/wyniki.csv">
+      <provider editor-type-id="csv-text-editor">
+        <state relative-caret-position="986">
+          <caret line="58" column="78" selection-start-line="58" selection-start-column="78" selection-end-line="58" selection-end-column="78" />
         </state>
       </provider>
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ug/pprotocols/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="434">
-          <caret line="54" column="28" selection-start-line="54" selection-start-column="28" selection-end-line="54" selection-end-column="28" />
+    <entry file="file://$PROJECT_DIR$/wyniki4.csv">
+      <provider editor-type-id="csv-text-editor">
+        <state relative-caret-position="391">
+          <caret line="23" column="23" selection-start-line="23" selection-start-column="23" selection-end-line="23" selection-end-column="23" />
         </state>
       </provider>
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ug/pprotocols/tests/ApproximationGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="121" column="60" lean-forward="true" selection-start-line="121" selection-start-column="60" selection-end-line="121" selection-end-column="60" />
+        <state relative-caret-position="580">
+          <caret line="122" column="64" lean-forward="true" selection-start-line="122" selection-start-column="64" selection-end-line="122" selection-end-column="64" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/approxwyniki_Preparation.csv">
+      <provider editor-type-id="csv-text-editor">
+        <state relative-caret-position="380">
+          <caret line="59" column="29" selection-start-line="59" selection-start-column="29" selection-end-line="59" selection-end-column="29" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1085" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/approxwyniki_Execution.csv">
+      <provider editor-type-id="csv-text-editor">
+        <state relative-caret-position="-316" />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1085" />
       </provider>
     </entry>
   </component>
