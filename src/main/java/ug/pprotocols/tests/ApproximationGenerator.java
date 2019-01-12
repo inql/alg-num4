@@ -17,18 +17,19 @@ public class ApproximationGenerator {
     public final  Map<Type, Map<Integer, AggregatedResults>> results;
 
     private final int startAgentNum = 15;
+    private final Mode mode;
 
-    public ApproximationGenerator(Map<Type, Map<Integer, AggregatedResults>> results) {
+    public ApproximationGenerator(Map<Type, Map<Integer, AggregatedResults>> results, Mode mode) {
         this.results = results;
+        this.mode = mode;
     }
 
     public Map<Type,double[]> gen()
     {
         Map<Type,double[]> typeMap = new HashMap<>();
 
-        for (Type type: results.keySet())
-        {
-            typeMap.put(type,generateValue(type));
+        for (Type type : results.keySet()) {
+            typeMap.put(type, generateValue(type, mode));
         }
 
         return typeMap;
@@ -51,6 +52,7 @@ public class ApproximationGenerator {
 
     public void findDifferences(Map<Type,double[]> approxResults) {
         Power power;
+        System.out.println(mode);
         for (Type type : results.keySet()) {
             double[] apprRes = new double[results.get(type).size()];
             double[] progRes = new double[results.get(type).size()];
@@ -131,7 +133,7 @@ public class ApproximationGenerator {
         }
     }
 
-    public double[] generateValue(Type type)
+    public double[] generateValue(Type type, Mode mode)
     {
         double[] arguments = new double[results.get(type).size()];
         double[] values = new double[results.get(type).size()];
@@ -139,7 +141,7 @@ public class ApproximationGenerator {
         for (int i : results.get(type).keySet())
         {
             arguments[i-startAgentNum] = ApproximationGenerator.getEquationNumber(i);
-            values[i-startAgentNum] = results.get(type).get(i).getExecutionTime();
+            values[i-startAgentNum] = getTime(results.get(type).get(i));
         }
 
         Approximation appr = new Approximation(arguments, values, type);
@@ -148,6 +150,12 @@ public class ApproximationGenerator {
         return appr.getResults();
 
     }
+
+    public double getTime(AggregatedResults ar)
+    {
+        return mode == Mode.Execution ? ar.getGenerationTime() : ar.getExecutionTime();
+    }
+
 
     public static int getEquationNumber(int agentsNumber){
         int result = 0;

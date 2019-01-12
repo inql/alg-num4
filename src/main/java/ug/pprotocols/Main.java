@@ -3,6 +3,7 @@ package ug.pprotocols;
 import ug.pprotocols.algorithm.Approximation;
 import ug.pprotocols.tests.AggregatedResults;
 import ug.pprotocols.tests.ApproximationGenerator;
+import ug.pprotocols.tests.Mode;
 import ug.pprotocols.tests.ResultGenerator;
 
 import java.io.BufferedWriter;
@@ -35,12 +36,15 @@ public class Main {
             e.printStackTrace();
         }
 
-        ApproximationGenerator ag = new ApproximationGenerator(results);
-        Map<Type,double[]> approxResults = ag.gen();
-        ag.putFunctions(approxResults);
-        ag.findDifferences(approxResults);
-        ag.writeApproxToCsv(approxResults);
+        for (Mode mode : Mode.values()) {
 
+            ApproximationGenerator ag = new ApproximationGenerator(results, mode);
+            Map<Type, double[]> approxResults = ag.gen();
+            ag.putFunctions(approxResults);
+            ag.findDifferences(approxResults);
+            ag.writeApproxToCsv(approxResults);
+
+        }
 
     }
 
