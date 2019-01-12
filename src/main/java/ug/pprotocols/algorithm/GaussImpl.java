@@ -129,23 +129,27 @@ public class GaussImpl {
         {
             for (int i =0 ; i< n; i++)
             {
-
+                MatrixCompatible temp = new DoubleComp(0);
                 for (int j = 0; j < i; j++)
                 {
-                    vectorX[i] = dataOperation.subtract(vectorX[i], dataOperation.multiply(myMatrix.getValue(i, j), vectorX[j]));
+                    temp  = dataOperation.subtract(temp, dataOperation.multiply(myMatrix.getValue(i, j), vectorX[j]));
                 }
                 for (int j = i+1; j < n; j++)
                 {
-                    vectorX[i] = dataOperation.subtract(vectorX[i], dataOperation.multiply(myMatrix.getValue(i, j), prevVectorX[j]));
+                    temp  = dataOperation.subtract(temp, dataOperation.multiply(myMatrix.getValue(i, j), vectorX[j]));
                 }
-                vectorX[i] = dataOperation.add(vectorX[i], vectorB[i]);
-                vectorX[i] = dataOperation.divide(vectorX[i], myMatrix.getValue(i,i));
-                for (int x =0 ; x < n; x++) {
-                    prevVectorX[x] = vectorX[x];
-                }
+                temp  = dataOperation.add(temp, vectorB[i]);
+                temp  = dataOperation.divide(temp, myMatrix.getValue(i,i));
+
+                vectorX[i] = temp;
+
             }
             if (calculateAbsoluteError(vectorX,prevVectorX) < precision)
                 isPrecisionReached = true;
+
+            for (int x =0 ; x < n; x++) {
+                prevVectorX[x] = vectorX[x];
+            }
 
         }
 

@@ -17,7 +17,7 @@ public class Main {
         Map<Type, Map<Integer, AggregatedResults>> results = generateCsv();
 
         try {
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("wyniki4.csv"));
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("wyniki.csv"));
             bufferedWriter.write("NOTE:,For agents count higher than 15, montecarlo isnt generated\n");
             for (Type type :
                     results.keySet()) {
