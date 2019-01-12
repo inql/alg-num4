@@ -58,7 +58,7 @@ public class ApproximationGenerator {
                 }
                 System.out.println(type + ", " + ApproximationGenerator.getEquationNumber(i));
                 System.out.println("wartosc = " + temp);
-                System.out.println("Roznica od wartosci z resultow " +  Math.abs(results.get(type).get(i).getExecutionTime()-temp));
+                System.out.println("Roznica od wartosci z resultow " +  (Math.abs(results.get(type).get(i).getExecutionTime()-temp))/results.get(type).get(i).getExecutionTime());
 
             }
         }
@@ -72,8 +72,8 @@ public class ApproximationGenerator {
 
         for (int i : results.get(type).keySet())
         {
-            arguments[i-3] = ApproximationGenerator.getEquationNumber(i);
-            values[i-3] = results.get(type).get(i).getExecutionTime();
+            arguments[i-10] = ApproximationGenerator.getEquationNumber(i);
+            values[i-10] = results.get(type).get(i).getExecutionTime();
         }
 
         Approximation appr = new Approximation(arguments, values, type);
