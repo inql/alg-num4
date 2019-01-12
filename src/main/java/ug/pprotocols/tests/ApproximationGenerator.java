@@ -29,8 +29,8 @@ public class ApproximationGenerator {
         for (Type type: results.keySet())
         {
             typeMap.put(type,generateValue(type));
-
         }
+
         return typeMap;
     }
 
