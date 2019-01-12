@@ -11,6 +11,8 @@ public class ApproximationGenerator {
 
     public final  Map<Type, Map<Integer, AggregatedResults>> results;
 
+    private final int startAgentNum = 10;
+
     public ApproximationGenerator(Map<Type, Map<Integer, AggregatedResults>> results) {
         this.results = results;
     }
@@ -47,6 +49,8 @@ public class ApproximationGenerator {
         Power power;
         for (Type type : results.keySet())
         {
+            double[] apprRes = new double[results.get(type).size()];
+            double[] progRes = new double[results.get(type).size()];
             for (int i : results.get(type).keySet())
             {
                 double[] pom = approxResults.get(type);
@@ -58,10 +62,22 @@ public class ApproximationGenerator {
                 }
                 System.out.println(type + ", " + ApproximationGenerator.getEquationNumber(i));
                 System.out.println("wartosc = " + temp);
-                System.out.println("Roznica od wartosci z resultow " +  (Math.abs(results.get(type).get(i).getExecutionTime()-temp))/results.get(type).get(i).getExecutionTime());
+                System.out.println("Roznica od wartosci z resultow " +  Math.abs(results.get(type).get(i).getExecutionTime()-temp));
 
+    }
             }
+
+    private double approximationError(double[] apprRes, double[] progRes, Type type)
+    {
+        double err = 0;
+
+        for (int i = 0; i < results.get(type).size(); i++)
+        {
+            err += (progRes[i] - apprRes[i]) * (progRes[i] - apprRes[i]);
+
         }
+
+        return err;
     }
 
 
@@ -72,8 +88,8 @@ public class ApproximationGenerator {
 
         for (int i : results.get(type).keySet())
         {
-            arguments[i-10] = ApproximationGenerator.getEquationNumber(i);
-            values[i-10] = results.get(type).get(i).getExecutionTime();
+            arguments[i-startAgentNum] = ApproximationGenerator.getEquationNumber(i);
+            values[i-startAgentNum] = results.get(type).get(i).getExecutionTime();
         }
 
         Approximation appr = new Approximation(arguments, values, type);

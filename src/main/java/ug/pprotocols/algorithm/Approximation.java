@@ -29,7 +29,7 @@ public class Approximation {
     public void calculate()
     {
         Equation eq = new Equation(matrix,vector, null);
-        MatrixCompatible[] result = eq.evaluate(Type.GAUSS_SEIDEL_MINUS10); // Na sztywno jest gauss-sparse. Do zmiany?
+        MatrixCompatible[] result = eq.evaluate(Type.GAUSS_SEIDEL_MINUS10);
 
         results = new double[m+1];
         int k = m;
