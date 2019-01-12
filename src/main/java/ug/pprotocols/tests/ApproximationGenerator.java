@@ -153,7 +153,10 @@ public class ApproximationGenerator {
 
     public double getTime(AggregatedResults ar)
     {
-        return mode == Mode.Execution ? ar.getGenerationTime() : ar.getExecutionTime();
+        if ( mode == Mode.Execution)
+            return ar.getExecutionTime();
+        else return ar.getGenerationTime();
+
     }
 
 
