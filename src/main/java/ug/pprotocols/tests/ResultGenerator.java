@@ -54,15 +54,11 @@ public class ResultGenerator {
                     generateTimeInSeconds = ((generateStop-generateStart)/1000000000D);
                     //tutaj liczenie czasu dla obliczania
                     executionStart = System.nanoTime();
-                    MatrixCompatible[] results = equationToSolve.evaluate(type);
+                    equationToSolve.evaluate(type);
                     executionStop = System.nanoTime();
                     executionTimeInSeconds = ((executionStop-executionStart)/1000000000D);
                     aggregatedResults.updateAggregatedResults(new Results(
-                            calculateAbsoluteErrorMax(equationToSolve.getVectorB(),
-                                    equationToSolve.getNewVectorB(),equationToSolve),
                                     executionTimeInSeconds,
-                                    calculateAbsoluteErrorAverage(equationToSolve.getVectorB(),
-                                            equationToSolve.getNewVectorB(),equationToSolve),
                             generateTimeInSeconds));
                     }
             aggregatedResults.divideByExecutionCount();
