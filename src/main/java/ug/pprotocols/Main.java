@@ -52,7 +52,7 @@ public class Main {
         Map<Integer, Integer> testScope = new HashMap<Integer, Integer>() {{
         }};
 //        for(int i =15; i<=60; i++){
-            testScope.put(300,1);
+            testScope.put(100,1);
 //        }
 
 //        Type[] types = Type.values();
