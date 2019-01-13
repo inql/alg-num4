@@ -49,8 +49,17 @@ public class Main {
 
         Map<Integer, Integer> testScope = new HashMap<Integer, Integer>() {{
         }};
-        for(int i =15; i<=60; i++){
-            testScope.put(i,1);
+        for(int i =15; i<=20; i++){
+            testScope.put(i,10000/i);
+        }
+        for(int i =21; i<=39; i++){
+            testScope.put(i,800/i);
+        }
+        for(int i =40; i<=50; i++){
+            testScope.put(i,10);
+        }
+        for(int i =51; i<=60; i++){
+            testScope.put(i,5);
         }
 
         Type[] types = Type.values();
