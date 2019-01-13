@@ -57,7 +57,6 @@ public class MatrixGenerator {
                     System.out.println("Przekroczyłem czas działania 5cio krotnie - i="+i);
                 }
             }
-            System.out.println("Skończyłem generowanie macierzy");
             return new Equation<>(sparseFieldMatrix,sparseFieldVector);
 
         }

@@ -17,43 +17,43 @@ public class Main {
 
         Map<Type, Map<Integer, AggregatedResults>> results = generateCsv();
 
-        try {
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("wyniki.csv"));
-            bufferedWriter.write("NOTE:,For agents count higher than 15, montecarlo isnt generated\n");
-            for (Type type :
-                    results.keySet()) {
-                bufferedWriter.write("\n\n");
-                bufferedWriter.write(type.toString() + "\n");
-                bufferedWriter.write("liczba agentów,czas wykonania(generowanie),czas wykonania(obliczanie),ilość wykonań,\n");
-                for (Integer agentsNum :
-                        new TreeSet<>(results.get(type).keySet())) {
-                    bufferedWriter.write("\n"+agentsNum + "," + results.get(type).get(agentsNum).toString());
-                }
-
-            }
-            bufferedWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        for (Mode mode : Mode.values()) {
-
-            ApproximationGenerator ag = new ApproximationGenerator(results, mode);
-            Map<Type, double[]> approxResults = ag.gen();
-            ag.putFunctions(approxResults);
-            ag.findDifferences(approxResults);
-            ag.writeApproxToCsv(approxResults);
-
-        }
+//        try {
+//            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("wyniki.csv"));
+//            bufferedWriter.write("NOTE:,For agents count higher than 15, montecarlo isnt generated\n");
+//            for (Type type :
+//                    results.keySet()) {
+//                bufferedWriter.write("\n\n");
+//                bufferedWriter.write(type.toString() + "\n");
+//                bufferedWriter.write("liczba agentów,czas wykonania(generowanie),czas wykonania(obliczanie),ilość wykonań,\n");
+//                for (Integer agentsNum :
+//                        new TreeSet<>(results.get(type).keySet())) {
+//                    bufferedWriter.write("\n"+agentsNum + "," + results.get(type).get(agentsNum).toString());
+//                }
+//
+//            }
+//            bufferedWriter.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        for (Mode mode : Mode.values()) {
+//
+//            ApproximationGenerator ag = new ApproximationGenerator(results, mode);
+//            Map<Type, double[]> approxResults = ag.gen();
+//            ag.putFunctions(approxResults);
+//            ag.findDifferences(approxResults);
+//            ag.writeApproxToCsv(approxResults);
+//
+//        }
     }
 
     public static Map<Type, Map<Integer, AggregatedResults>> generateCsv() {
 
         Map<Integer, Integer> testScope = new HashMap<Integer, Integer>() {{
         }};
-        for(int i =15; i<=60; i++){
-            testScope.put(i,1);
-        }
+//        for(int i =15; i<=60; i++){
+            testScope.put(300,1);
+//        }
 
 //        Type[] types = Type.values();
         Type[] types = new Type[1];

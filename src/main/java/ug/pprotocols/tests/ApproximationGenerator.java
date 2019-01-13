@@ -16,7 +16,7 @@ public class ApproximationGenerator {
 
     public final  Map<Type, Map<Integer, AggregatedResults>> results;
 
-    private final int startAgentNum = 15;
+    private final int startAgentNum = 300;
     private final Mode mode;
 
     public ApproximationGenerator(Map<Type, Map<Integer, AggregatedResults>> results, Mode mode) {
