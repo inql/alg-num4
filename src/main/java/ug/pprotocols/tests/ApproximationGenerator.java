@@ -65,10 +65,10 @@ public class ApproximationGenerator {
                 }
                 System.out.println(type + ", " + ApproximationGenerator.getEquationNumber(i));
                 System.out.println("wartosc = " + temp);
-                System.out.println("Roznica od wartosci z resultow " + (Math.abs(results.get(type).get(i).getExecutionTime() - temp)) / results.get(type).get(i).getExecutionTime());
+                System.out.println("Roznica od wartosci z resultow " + (Math.abs(getTime(results.get(type).get(i)) - temp)) / getTime(results.get(type).get(i)));
 
                 apprRes[i-startAgentNum] = temp;
-                progRes[i-startAgentNum] = results.get(type).get(i).getExecutionTime();
+                progRes[i-startAgentNum] = getTime(results.get(type).get(i));
             }
             System.out.println("Blad aproksymacji = " + approximationError(apprRes,progRes,type));
         }
@@ -114,16 +114,18 @@ public class ApproximationGenerator {
                         power = new Power(pom.length-w-1);
                         temp += (power.value(ApproximationGenerator.getEquationNumber(agentsNum)))*pom[w];
                     }
-                    bufferedWriter.write(ApproximationGenerator.getEquationNumber(agentsNum) + "," + temp+","+(Math.abs(results.get(type).get(agentsNum).getExecutionTime()-temp))/results.get(type).get(agentsNum).getExecutionTime()+","+Math.abs(results.get(type).get(agentsNum).getExecutionTime()-temp)+"\n");
+                    bufferedWriter.write(ApproximationGenerator.getEquationNumber(agentsNum) + "," + temp+","+(Math.abs(getTime(results.get(type).get(agentsNum))-temp))/getTime(results.get(type).get(agentsNum))+","+Math.abs(getTime(results.get(type).get(agentsNum))-temp)+"\n");
                     apprRes[agentsNum-startAgentNum] = temp;
-                    progRes[agentsNum-startAgentNum] = results.get(type).get(agentsNum).getExecutionTime();
+                    progRes[agentsNum-startAgentNum] = getTime(results.get(type).get(agentsNum));
                 }
                 bufferedWriter.write("Blad aproksymacji = " + approximationError(apprRes,progRes,type)+"\n");
                 double[] highExec = approxResults.get(type);
                 BigDecimal highExecResult = new BigDecimal(0.0);
                 BigDecimal equationsCount = new BigDecimal(100000);
+                System.out.println("BEFORE");
                 for(int w =0; w<highExec.length; w++){
                     highExecResult = highExecResult.add(equationsCount.pow(highExec.length-w-1).multiply(BigDecimal.valueOf(highExec[w])));
+                    System.out.println(highExecResult);
                 }
                 bufferedWriter.write("Czas wykonania dla 100000:,"+highExecResult);
             }
@@ -153,10 +155,7 @@ public class ApproximationGenerator {
 
     public double getTime(AggregatedResults ar)
     {
-        if ( mode == Mode.Execution)
-            return ar.getExecutionTime();
-        else return ar.getGenerationTime();
-
+        return mode != Mode.Execution ? ar.getGenerationTime() : ar.getExecutionTime();
     }
 
 
