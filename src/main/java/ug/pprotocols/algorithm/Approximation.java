@@ -29,7 +29,7 @@ public class Approximation {
     public void calculate()
     {
         Equation eq = new Equation(matrix,vector, null);
-        MatrixCompatible[] result = eq.evaluate(Type.GAUSS_SEIDEL_MINUS10);
+        MatrixCompatible[] result = eq.evaluate(Type.GAUSS_SPARSE);
 
         results = new double[m+1];
         int k = m;
@@ -95,14 +95,13 @@ public class Approximation {
     {
         switch (type)
         {
-            case GAUSS:
+            case LIBRARY_SPARSE_M_3:
                 m = 3;
                 break;
-            case GAUSS_SEIDEL_MINUS10:
-            case GAUSS_SPARSE:
+            case  LIBRARY_SPARSE_M_2:
                 m = 2;
                 break;
-            case LIBRARY_SPARSE:
+            case LIBRARY_SPARSE_M_1:
                 m = 1;
                 break;
                 default:

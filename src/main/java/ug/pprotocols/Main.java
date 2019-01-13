@@ -36,15 +36,14 @@ public class Main {
             e.printStackTrace();
         }
 
-        for (Mode mode : Mode.values()) {
 
-            ApproximationGenerator ag = new ApproximationGenerator(results, mode);
+            ApproximationGenerator ag = new ApproximationGenerator(results, Mode.Preparation);
             Map<Type, double[]> approxResults = ag.gen();
             ag.putFunctions(approxResults);
             ag.findDifferences(approxResults);
             ag.writeApproxToCsv(approxResults);
 
-        }
+
 
     }
 
@@ -52,11 +51,11 @@ public class Main {
 
         Map<Integer, Integer> testScope = new HashMap<Integer, Integer>() {{
         }};
-        for(int i =15; i<=30; i++){
+        for(int i =15; i<=18; i++){
             testScope.put(i,1);
         }
 
-        Type[] types = Type.values();
+        Type[] types = {Type.LIBRARY_SPARSE_M_1, Type.LIBRARY_SPARSE_M_2, Type.LIBRARY_SPARSE_M_3};
 //        Type[] types = new Type[1];
 //        types[0] = Type.LIBRARY_SPARSE;
         Arrays.sort(types);

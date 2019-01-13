@@ -48,22 +48,23 @@ public class Equation<T extends MatrixCompatible> {
 
     public MatrixCompatible[] evaluate(Type type){
         switch (type){
-            case GAUSS:
-                gauss = new GaussImpl(matrixA,new MatrixCompatibleFactory(DataType.DOUBLE),new DoubleOperation(), ChoiceType.PARTIAL);
-                this.vectorXGauss = gauss.gauss(vectorB,false);
-                setNewVectorB(matrixA,this.vectorXGauss);
-                return this.vectorXGauss;
+
             case GAUSS_SPARSE:
                 gauss = new GaussImpl(matrixA,new MatrixCompatibleFactory(DataType.DOUBLE),new DoubleOperation(), ChoiceType.PARTIAL);
                 this.vectorXGaussSparse = gauss.gauss(vectorB,true);
                 setNewVectorB(matrixA,this.vectorXGaussSparse);
                 return this.vectorXGaussSparse;
-            case GAUSS_SEIDEL_MINUS10:
-                gauss = new GaussImpl(matrixA,new MatrixCompatibleFactory(DataType.DOUBLE),new DoubleOperation(), ChoiceType.PARTIAL);
-                this.vectorXGS = gauss.gaussSeidel(vectorB,type.getPrecision());
-                setNewVectorB(matrixA,this.vectorXGS);
-                return this.vectorXGS;
-            case LIBRARY_SPARSE:
+            case LIBRARY_SPARSE_M_2:
+                this.vectorB = sparseFieldVector.getColumnVector(0).toArray();
+                this.vectorXLibSparse = solver.getSolver().solve(sparseFieldVector);
+                this.newVectorB = sparseFieldMatrix.multiply(vectorXLibSparse).getColumn(0);
+                return vectorXLibSparse.getColumn(0);
+            case LIBRARY_SPARSE_M_3:
+                this.vectorB = sparseFieldVector.getColumnVector(0).toArray();
+                this.vectorXLibSparse = solver.getSolver().solve(sparseFieldVector);
+                this.newVectorB = sparseFieldMatrix.multiply(vectorXLibSparse).getColumn(0);
+                return vectorXLibSparse.getColumn(0);
+            case LIBRARY_SPARSE_M_1:
                 this.vectorB = sparseFieldVector.getColumnVector(0).toArray();
                 this.vectorXLibSparse = solver.getSolver().solve(sparseFieldVector);
                 this.newVectorB = sparseFieldMatrix.multiply(vectorXLibSparse).getColumn(0);

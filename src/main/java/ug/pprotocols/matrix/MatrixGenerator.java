@@ -36,7 +36,7 @@ public class MatrixGenerator {
 
 
     public Equation generateEquation(Type equationType){
-        if(equationType==Type.LIBRARY_SPARSE){
+        if(equationType!=Type.GAUSS_SPARSE ){
             SparseFieldMatrix<DoubleComp> sparseFieldMatrix = new SparseFieldMatrix<>(new DoubleComp(0D),numberOfEquations,numberOfEquations);
             SparseFieldMatrix<DoubleComp> sparseFieldVector = new SparseFieldMatrix<>(new DoubleComp(0D),numberOfEquations,1);
             for(int i = 0 ; i<sparseFieldVector.getRowDimension()-1; i++){
