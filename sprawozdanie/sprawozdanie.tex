@@ -31,11 +31,15 @@ footskip=.15in]{geometry}
 Sprawozdanie prezentuje analizę aproksymacji dla problemu określonego w zadaniu 3.
 W tym celu, zastosowana została aproksymacja dla metod testowanych w zadaniu 3:
 \begin{itemize}
-	\item Metoda Gaussa (PG\label{PG}) - wielomian 3-go stopnia,
-	\item Metoda Gaussa z drobną optymalizacją dla macierzy rzadkich (SPG\label{SPG}) - wielomian 2-go stopnia,
-	\item Metoda Gaussa-Seidela (GS\label{GS}) przy założonej dokładności 1e-10 - wielomian 2-go stopnia,
+	\item Metoda Gaussa (PG) - wielomian 3-go stopnia,
+	\item Metoda Gaussa z drobną optymalizacją dla macierzy rzadkich (SPG) - wielomian 2-go stopnia,
+	\item Metoda Gaussa-Seidela (GS) przy założonej dokładności 1e-10 - wielomian 2-go stopnia,
 	\\\\Oraz dodatkowo:
-	\item Metoda zaimplementowana w oparciu o macierze rzadkie (S\label{S}) - wielomian 1 stopnia (wykonane za pomocą LUDecomposition z biblioteki Apache Commons Math\footnote{\url{http://commons.apache.org/proper/commons-math/javadocs/api-3.6/overview-summary.html}})
+	\begin{itemize}
+	\item Metoda zaimplementowana w oparciu o macierze rzadkie (S) - wielomian 1 stopnia (wykonane za pomocą LUDecomposition z biblioteki Apache Commons Math\footnote{\url{http://commons.apache.org/proper/commons-math/javadocs/api-3.6/overview-summary.html}}) - wariant z użyciem własnego typu danych (SparseFieldMatrix),
+	\item wariant z użyciem tablicy double (DS) (OpenMapRealMatrix)
+	\end{itemize}
+
 \end{itemize}
 Program na potrzeby analizy problemu został napisany w języku Java.
 Ilość agentów oznaczana jest jako $N$
@@ -49,9 +53,10 @@ Za pomocą aproksymacji średniokwadratowej dyskretnej, wygenerowane zostały wi
 \begin{enumerate}
 	\item Generowanie macierzy:
 	\begin{enumerate}
-		\item $(\expnumber{2.3350439175615983}{-11})x^3 -(\expnumber{3.73562735299031}{-8}) x^2 + (\expnumber{3.927924861861045}{-5}) x^1 -0.006632202623758287$ dla \ref{PG},
+		\item $(\expnumber{2.3350439175615983}{-11})x^3 -(\expnumber{3.73562735299031}{-8}) x^2 + (\expnumber{3.927924861861045}{-5}) x^1 -0.006632202623758287$ dla PG,
 		\item $0.026544550834587136 x^1 -12.310426442549858$ dla S (wariant dla wielomianu stopnia 1, $m=1$),
-		\item $(\expnumber{1.1160411337156506}{-8})x^3 - (\expnumber{1.138102839915528}{-5})x^2 + 0.006355108980340516 x^1 \\-0.9349542064725634$ dla S (wariant dla wielomianu stopnia 3, $m=3$)
+		\item $(\expnumber{1.1160411337156506}{-8})x^3 - (\expnumber{1.138102839915528}{-5})x^2 + 0.006355108980340516 x^1 \\-0.9349542064725634$ dla S (wariant dla wielomianu stopnia 3, $m=3$),
+		\item $0.005862735639798491x^1 -2.8318326460105085$ dla S (wariant)
 		\item $(\expnumber{3.905262387830365}{-8})x^2 -(\expnumber{2.5264926661242525}{-5})x^1 + 0.006283510185750934 x^0$ dla SPG,
 		\item $(\expnumber{5.486623477461811}{-8})x^2 - (\expnumber{5.4389374355751846}{-5}) x^1 + 0.014501100847044942$ dla GS.
 	\end{enumerate}
@@ -59,6 +64,7 @@ Za pomocą aproksymacji średniokwadratowej dyskretnej, wygenerowane zostały wi
 	\begin{enumerate}
 		\item $(\expnumber{2.1592223868228134}{-8})x^3 - (\expnumber{3.716638790505861}{-5})x^2 + 0.023672650455756852x^1 \\-3.8108135102259824$ dla PG,
 		\item $(\expnumber{1.583603905695412}{-4})x^1 -0.06429601760699291$ dla S,
+		\item $(\expnumber{2.0353485741938283}{-5}) x^1,-0.008158601334700392$ dla DS,
 		\item $(\expnumber{1.3001654605220337}{-6})x^2 - 0.0014560130726117273x^1 + 0.3507906257127139$ dla SPG,
 		\item $(\expnumber{2.3048124134271384}{-5})x^2 - 0.020571995359005252x^1 + 4.514786569835568$ dla GS.
 	\end{enumerate}
@@ -78,8 +84,12 @@ Za pomocą aproksymacji średniokwadratowej dyskretnej, wygenerowane zostały wi
 		\caption{ \label{Rys1c}}
 	\end{subfigure}
 	\begin{subfigure}{0.3\textwidth}
-		\includegraphics[width=\textwidth]{img/Exec/e4.png}
+		\includegraphics[width=\textwidth]{img/Exec/www.png}
 		\caption{ \label{Rys1d}}
+	\end{subfigure}
+	\begin{subfigure}{0.3\textwidth}
+	\includegraphics[width=\textwidth]{img/Exec/exec_ds.png}
+	\caption{ \label{Rys1j}}
 	\end{subfigure}
 	\begin{subfigure}{0.3\textwidth}
 		\includegraphics[width=\textwidth]{img/Prep/wyk1.png}
@@ -94,7 +104,7 @@ Za pomocą aproksymacji średniokwadratowej dyskretnej, wygenerowane zostały wi
 		\caption{ \label{Rys1g}}
 	\end{subfigure}
 	\begin{subfigure}{0.35\textwidth}
-		\includegraphics[width=\textwidth]{img/Prep/wyk4.png}
+		\includegraphics[width=\textwidth]{img/Prep/prep_ds.png}
 		\caption{ \label{Rys1h}}
 	\end{subfigure}
 	\begin{subfigure}{0.35\textwidth}
@@ -123,9 +133,12 @@ Za pomocą aproksymacji średniokwadratowej dyskretnej, wygenerowane zostały wi
 		& Generowanie $m=1$ & $3727.8124913151905$\\
 		& Generowanie $m=3$ & $26.142413480394573$\\
 		\hline
+		\multirow{2}{*}{DS} & Obliczanie & $\expnumber{8.484328415617502}{-4}$ \\
+		& Generowanie & $208.62045033311406$ \\
+		\hline
 	\end{tabular}
 \end{center}
-Jak widać na załączonych wykresach \ref{Rys1} oraz tabeli powyżej prezentującej błąd aproksymacji, w większości przypadków funkcja aproksymująca poprawnie wylicza kolejne czasy wykonywania algorytmu. Wyjątkiem jest funkcja dla generowania w metodzie S. 
+Jak widać na załączonych wykresach \ref{Rys1} oraz tabeli powyżej prezentującej błąd aproksymacji, w większości przypadków funkcja aproksymująca poprawnie wylicza kolejne czasy wykonywania algorytmu. Wyjątkiem jest funkcja dla generowania w metodzie S. Wielomian stopnia pierwszego okazał się być niewystarczający dla tego typu problemu, gdyż w bibliotece Commons Math maceirze rzadkie zapisywane są w postaci obiektów HashMap - co znacząco wydłuża czas 
 \section{Ekstrapolacja}
 \section{Próba obliczenia}
 \section{Podział pracy}

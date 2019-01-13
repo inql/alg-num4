@@ -72,7 +72,9 @@ public class Equation<T extends MatrixCompatible> {
                 setNewVectorB(matrixA,this.vectorXGS);
                 return this.vectorXGS;
             case LIBRARY_SPARSE:
+                System.out.println("Zaczynam obliczanie...");
                 solver.getSolver().solve(sparseFieldVector);
+                System.out.println("Skończyłem obliczanie...");
 //                this.vectorB = sparseFieldVector.getColumnVector(0).toArray();
 //                this.vectorXLibSparse = solver.getSolver().solve(sparseFieldVector);
 //                this.newVectorB = sparseFieldMatrix.multiply(vectorXLibSparse).getColumn(0);

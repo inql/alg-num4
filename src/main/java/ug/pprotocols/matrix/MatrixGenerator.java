@@ -50,8 +50,10 @@ public class MatrixGenerator {
             for(int i = 0; i< sparseFieldMatrix.getRowDimension(); i++){
                 for(int j = 0; j<sparseFieldMatrix.getColumnDimension(); j++){
                     sparseFieldMatrix.setEntry(i,j,generateValue(i,j).getDoubleValue());
+                    System.out.println("Ustawiłem wartość w matrix dla i ="+i+"j="+j);
                 }
             }
+            System.out.println("Skończyłem generowanie macierzy");
             return new Equation<>(sparseFieldMatrix,sparseFieldVector);
 
         }
