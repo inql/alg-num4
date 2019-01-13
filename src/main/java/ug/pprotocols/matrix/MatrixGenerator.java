@@ -1,9 +1,6 @@
 package ug.pprotocols.matrix;
 
-import org.apache.commons.math3.linear.MatrixUtils;
-import org.apache.commons.math3.linear.SparseFieldMatrix;
-import org.apache.commons.math3.linear.SparseFieldVector;
-import org.ejml.data.DMatrixRMaj;
+import org.apache.commons.math3.linear.*;
 import org.ejml.data.DMatrixSparseCSC;
 import ug.pprotocols.Type;
 import ug.pprotocols.datatypes.DataType;
@@ -39,19 +36,23 @@ public class MatrixGenerator {
 
     public Equation generateEquation(Type equationType){
         if(equationType==Type.LIBRARY_SPARSE){
-            DMatrixSparseCSC sparseMatrix = new DMatrixSparseCSC(numberOfEquations,numberOfEquations);
-            DMatrixRMaj sparseVector = new DMatrixRMaj(numberOfEquations,1);
-            for(int i = 0 ; i<sparseVector.numRows-1; i++){
-                sparseVector.set(i,0,0D);
+            SparseRealMatrix sparseFieldMatrix = new OpenMapRealMatrix(numberOfEquations,numberOfEquations);
+            SparseRealMatrix sparseFieldVector = new OpenMapRealMatrix(numberOfEquations,1);
+//            SparseFieldMatrix<DoubleComp> sparseFieldMatrix = new SparseFieldMatrix<>(new DoubleComp(0D),numberOfEquations,numberOfEquations);
+//            SparseFieldMatrix<DoubleComp> sparseFieldVector = new SparseFieldMatrix<>(new DoubleComp(0D),numberOfEquations,1);
+            for(int i = 0 ; i<sparseFieldVector.getRowDimension()-1; i++){
+//                sparseFieldVector.setEntry(i,0,new DoubleComp(0D));
+                sparseFieldVector.setEntry(i,0,0D);
             }
-            sparseVector.set(sparseVector.numRows-1,0,1D);
+//            sparseFieldVector.setEntry(sparseFieldVector.getRowDimension()-1,0,new DoubleComp(1D));
+            sparseFieldVector.setEntry(sparseFieldVector.getRowDimension()-1,0,1D);
 
-            for(int i = 0; i< sparseMatrix.numRows; i++){
-                for(int j = 0; j<sparseMatrix.numCols; j++){
-                    sparseMatrix.set(i,j,generateValue(i,j).getDoubleValue());
+            for(int i = 0; i< sparseFieldMatrix.getRowDimension(); i++){
+                for(int j = 0; j<sparseFieldMatrix.getColumnDimension(); j++){
+                    sparseFieldMatrix.setEntry(i,j,generateValue(i,j).getDoubleValue());
                 }
             }
-            return new Equation<>(sparseMatrix,sparseVector);
+            return new Equation<>(sparseFieldMatrix,sparseFieldVector);
 
         }
         else{
