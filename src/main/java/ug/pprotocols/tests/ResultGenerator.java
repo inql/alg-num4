@@ -52,9 +52,12 @@ public class ResultGenerator {
                     Equation equationToSolve = matrixGenerator.generateEquation(type);
                     generateStop = System.nanoTime();
                     generateTimeInSeconds = ((generateStop-generateStart)/1000000000D);
+                    System.out.println("Skończyłem generowanie macierzy");
                     //tutaj liczenie czasu dla obliczania
                     executionStart = System.nanoTime();
+                    System.out.println("Zaczynam obliczanie...");
                     equationToSolve.evaluate(type);
+                    System.out.println("Skończyłem obliczanie...");
                     executionStop = System.nanoTime();
                     executionTimeInSeconds = ((executionStop-executionStart)/1000000000D);
                     aggregatedResults.updateAggregatedResults(new Results(
