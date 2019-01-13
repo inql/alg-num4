@@ -23,6 +23,10 @@ public enum Type {
     LIBRARY_SPARSE(0D){
         @Override
         public String toString() {return "LIBRARY_SPARSE";}
+    },
+    LIBRARY_SPARSE_FIELD(0D){
+        @Override
+        public String toString() {return "LIBRARY_SPARSE_FIELD";}
     };
 
     private final double precision;

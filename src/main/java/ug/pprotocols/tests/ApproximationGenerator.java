@@ -16,7 +16,7 @@ public class ApproximationGenerator {
 
     public final  Map<Type, Map<Integer, AggregatedResults>> results;
 
-    private final int startAgentNum = 300;
+    private final int startAgentNum = 15;
     private final Mode mode;
 
     public ApproximationGenerator(Map<Type, Map<Integer, AggregatedResults>> results, Mode mode) {
@@ -29,7 +29,7 @@ public class ApproximationGenerator {
         Map<Type,double[]> typeMap = new HashMap<>();
 
         for (Type type : results.keySet()) {
-            typeMap.put(type, generateValue(type, mode));
+            typeMap.put(type, generateValue(type));
         }
 
         return typeMap;
@@ -135,7 +135,7 @@ public class ApproximationGenerator {
         }
     }
 
-    public double[] generateValue(Type type, Mode mode)
+    public double[] generateValue(Type type)
     {
         double[] arguments = new double[results.get(type).size()];
         double[] values = new double[results.get(type).size()];

@@ -38,17 +38,14 @@ public class MatrixGenerator {
         if(equationType==Type.LIBRARY_SPARSE){
             SparseRealMatrix sparseFieldMatrix = new OpenMapRealMatrix(numberOfEquations,numberOfEquations);
             SparseRealMatrix sparseFieldVector = new OpenMapRealMatrix(numberOfEquations,1);
-//            SparseFieldMatrix<DoubleComp> sparseFieldMatrix = new SparseFieldMatrix<>(new DoubleComp(0D),numberOfEquations,numberOfEquations);
-//            SparseFieldMatrix<DoubleComp> sparseFieldVector = new SparseFieldMatrix<>(new DoubleComp(0D),numberOfEquations,1);
+
             for(int i = 0 ; i<sparseFieldVector.getRowDimension()-1; i++){
-//                sparseFieldVector.setEntry(i,0,new DoubleComp(0D));
                 sparseFieldVector.setEntry(i,0,0D);
             }
-//            sparseFieldVector.setEntry(sparseFieldVector.getRowDimension()-1,0,new DoubleComp(1D));
             sparseFieldVector.setEntry(sparseFieldVector.getRowDimension()-1,0,1D);
 
             long start = System.currentTimeMillis();
-            long endCondition = 268111 * 5;
+            long endCondition = 70127 * 5;
             for(int i = 0; i< sparseFieldMatrix.getRowDimension(); i++){
                 for(int j = 0; j<sparseFieldMatrix.getColumnDimension(); j++){
                     sparseFieldMatrix.setEntry(i,j,generateValue(i,j).getDoubleValue());
@@ -58,7 +55,21 @@ public class MatrixGenerator {
                 }
             }
             return new Equation<>(sparseFieldMatrix,sparseFieldVector);
+        }else if (equationType == Type.LIBRARY_SPARSE_FIELD)
+        {
+            SparseFieldMatrix<DoubleComp> sparseFieldMatrix = new SparseFieldMatrix<>(new DoubleComp(0D),numberOfEquations,numberOfEquations);
+            SparseFieldMatrix<DoubleComp> sparseFieldVector = new SparseFieldMatrix<>(new DoubleComp(0D),numberOfEquations,1);
+            for(int i = 0 ; i<sparseFieldVector.getRowDimension()-1; i++){
+                sparseFieldVector.setEntry(i,0,new DoubleComp(0D));
+            }
+            sparseFieldVector.setEntry(sparseFieldVector.getRowDimension()-1,0,new DoubleComp(1D));
 
+            for(int i = 0; i< sparseFieldMatrix.getRowDimension(); i++){
+                for(int j = 0; j<sparseFieldMatrix.getColumnDimension(); j++){
+                    sparseFieldMatrix.setEntry(i,j,(DoubleComp)generateValue(i,j));
+                }
+            }
+            return new Equation<>(sparseFieldMatrix,sparseFieldVector);
         }
         else{
             MatrixCompatible[][] matrixA = matrixCompatibleFactory.createMatrix(numberOfEquations,numberOfEquations);
@@ -167,8 +178,8 @@ public class MatrixGenerator {
 
     private static long newton(long n, long k){
         if (k > n) { return 0; }
-        if (n == k) { return 1; } // only one way to chose when n == k
-        if (k > n - k) { k = n - k; } // Everything is symmetric around n-k, so it is quicker to iterate over a smaller k than a larger one.
+        if (n == k) { return 1; }
+        if (k > n - k) { k = n - k; }
         if (k == 1) { return n; }
         long c = 1;
         for (long i = 1; i <= k; i++)

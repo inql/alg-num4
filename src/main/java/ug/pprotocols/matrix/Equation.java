@@ -16,8 +16,11 @@ import java.util.Arrays;
 public class Equation<T extends MatrixCompatible> {
 
     private MyMatrix<T> matrixA;
-    public SparseRealMatrix sparseFieldMatrix;
-    public SparseRealMatrix sparseFieldVector;
+    public SparseRealMatrix sparseMatrix;
+    public SparseRealMatrix sparseVector;
+
+    public SparseFieldMatrix<DoubleComp> sparseFieldMatrix;
+    public SparseFieldMatrix<DoubleComp> sparseFieldVector;
     private MatrixCompatible[] vectorB;
     private MatrixCompatible[] vectorXGauss;
     private MatrixCompatible[] vectorXGaussSparse;
@@ -26,23 +29,24 @@ public class Equation<T extends MatrixCompatible> {
     private MatrixCompatible[] newVectorB;
     private GaussImpl gauss;
     private LUDecomposition solver;
+    private FieldLUDecomposition<DoubleComp> solverField;
 
     public Equation(MyMatrix<T> matrixA, MatrixCompatible[] vectorB, MatrixCompatible vectorX) {
         this.matrixA = matrixA;
         this.vectorB = vectorB;
     }
 
-//    public Equation(SparseFieldMatrix<DoubleComp> sparseFieldMatrix, SparseFieldMatrix<DoubleComp> sparseFieldVector) {
-//        this.sparseFieldMatrix = sparseFieldMatrix;
-//        this.sparseFieldVector = sparseFieldVector;
-//        solver = new EigenDecomposition<>(sparseFieldMatrix);
-//    }
-
 
     public Equation(SparseRealMatrix sparseFieldMatrix, SparseRealMatrix sparseFieldVector) {
+        this.sparseMatrix = sparseFieldMatrix;
+        this.sparseVector = sparseFieldVector;
+        solver = new LUDecomposition(sparseMatrix);
+    }
+
+    public Equation(SparseFieldMatrix<DoubleComp> sparseFieldMatrix, SparseFieldMatrix<DoubleComp> sparseFieldVector) {
         this.sparseFieldMatrix = sparseFieldMatrix;
         this.sparseFieldVector = sparseFieldVector;
-        solver = new LUDecomposition(sparseFieldMatrix);
+        solverField = new FieldLUDecomposition<>(sparseFieldMatrix);
     }
 
     @Override
@@ -72,12 +76,13 @@ public class Equation<T extends MatrixCompatible> {
                 setNewVectorB(matrixA,this.vectorXGS);
                 return this.vectorXGS;
             case LIBRARY_SPARSE:
-                solver.getSolver().solve(sparseFieldVector);
-//                this.vectorB = sparseFieldVector.getColumnVector(0).toArray();
-//                this.vectorXLibSparse = solver.getSolver().solve(sparseFieldVector);
-//                this.newVectorB = sparseFieldMatrix.multiply(vectorXLibSparse).getColumn(0);
-//                return vectorXLibSparse.getColumn(0);
+                solver.getSolver().solve(sparseVector);
                 return null;
+            case LIBRARY_SPARSE_FIELD:
+                this.vectorB = sparseFieldVector.getColumnVector(0).toArray();
+                this.vectorXLibSparse = solverField.getSolver().solve(sparseFieldVector);
+                this.newVectorB = sparseFieldMatrix.multiply(vectorXLibSparse).getColumn(0);
+                return vectorXLibSparse.getColumn(0);
         }
         return null;
     }
