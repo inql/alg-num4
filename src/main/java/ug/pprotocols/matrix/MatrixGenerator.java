@@ -47,10 +47,14 @@ public class MatrixGenerator {
 //            sparseFieldVector.setEntry(sparseFieldVector.getRowDimension()-1,0,new DoubleComp(1D));
             sparseFieldVector.setEntry(sparseFieldVector.getRowDimension()-1,0,1D);
 
+            long start = System.currentTimeMillis();
+            long endCondition = 268111 * 5;
             for(int i = 0; i< sparseFieldMatrix.getRowDimension(); i++){
                 for(int j = 0; j<sparseFieldMatrix.getColumnDimension(); j++){
                     sparseFieldMatrix.setEntry(i,j,generateValue(i,j).getDoubleValue());
-                    System.out.println("Ustawiłem wartość w matrix dla i ="+i+"j="+j);
+                }
+                if(System.currentTimeMillis()-start>endCondition){
+                    System.out.println("Przekroczyłem czas działania 5cio krotnie - i="+i);
                 }
             }
             System.out.println("Skończyłem generowanie macierzy");
