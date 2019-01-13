@@ -24,7 +24,7 @@ public class Main {
                     results.keySet()) {
                 bufferedWriter.write("\n\n");
                 bufferedWriter.write(type.toString() + "\n");
-                bufferedWriter.write("liczba agentów,błąd bezwgledny(max),błąd bezwzględny(średnia),czas wykonania(generowanie),czas wykonania(obliczanie),ilość wykonań,\n");
+                bufferedWriter.write("liczba agentów,czas wykonania(generowanie),czas wykonania(obliczanie),ilość wykonań,\n");
                 for (Integer agentsNum :
                         new TreeSet<>(results.get(type).keySet())) {
                     bufferedWriter.write("\n"+agentsNum + "," + results.get(type).get(agentsNum).toString());
@@ -45,20 +45,19 @@ public class Main {
             ag.writeApproxToCsv(approxResults);
 
         }
-
     }
 
     public static Map<Type, Map<Integer, AggregatedResults>> generateCsv() {
 
         Map<Integer, Integer> testScope = new HashMap<Integer, Integer>() {{
         }};
-        for(int i =15; i<=30; i++){
+        for(int i =15; i<=40; i++){
             testScope.put(i,1);
         }
 
-        Type[] types = Type.values();
-//        Type[] types = new Type[1];
-//        types[0] = Type.LIBRARY_SPARSE;
+//        Type[] types = Type.values();
+        Type[] types = new Type[1];
+        types[0] = Type.LIBRARY_SPARSE;
         Arrays.sort(types);
         List<Type> testCases = Arrays.asList(types);
 

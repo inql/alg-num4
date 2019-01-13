@@ -1,6 +1,10 @@
 package ug.pprotocols.matrix;
 
 import org.apache.commons.math3.linear.*;
+import org.ejml.data.DMatrixRMaj;
+import org.ejml.data.DMatrixSparseCSC;
+import org.ejml.interfaces.linsol.LinearSolverSparse;
+import org.ejml.sparse.csc.factory.LinearSolverFactory_DSCC;
 import ug.pprotocols.ChoiceType;
 import ug.pprotocols.Type;
 import ug.pprotocols.algorithm.GaussImpl;
@@ -11,6 +15,8 @@ import ug.pprotocols.datatypes.MatrixCompatibleFactory;
 import ug.pprotocols.operations.DoubleOperation;
 
 import java.util.Arrays;
+
+import static org.ejml.sparse.FillReducing.NONE;
 
 public class Equation<T extends MatrixCompatible> {
 
@@ -25,16 +31,24 @@ public class Equation<T extends MatrixCompatible> {
     private MatrixCompatible[] newVectorB;
     private GaussImpl gauss;
     private FieldLUDecomposition<DoubleComp> solver;
+    private DMatrixSparseCSC sparseMatix;
+    private DMatrixRMaj sparseVector;
 
     public Equation(MyMatrix<T> matrixA, MatrixCompatible[] vectorB, MatrixCompatible vectorX) {
         this.matrixA = matrixA;
         this.vectorB = vectorB;
     }
 
-    public Equation(SparseFieldMatrix<DoubleComp> sparseFieldMatrix, SparseFieldMatrix<DoubleComp> sparseFieldVector) {
-        this.sparseFieldMatrix = sparseFieldMatrix;
-        this.sparseFieldVector = sparseFieldVector;
-        solver = new FieldLUDecomposition<>(sparseFieldMatrix);
+//    public Equation(SparseFieldMatrix<DoubleComp> sparseFieldMatrix, SparseFieldMatrix<DoubleComp> sparseFieldVector) {
+//        this.sparseFieldMatrix = sparseFieldMatrix;
+//        this.sparseFieldVector = sparseFieldVector;
+//        solver = new FieldLUDecomposition<>(sparseFieldMatrix);
+//    }
+
+
+    public Equation(DMatrixSparseCSC sparseMatix, DMatrixRMaj sparseVector) {
+        this.sparseMatix = sparseMatix;
+        this.sparseVector = sparseVector;
     }
 
     @Override
@@ -64,10 +78,11 @@ public class Equation<T extends MatrixCompatible> {
                 setNewVectorB(matrixA,this.vectorXGS);
                 return this.vectorXGS;
             case LIBRARY_SPARSE:
-                this.vectorB = sparseFieldVector.getColumnVector(0).toArray();
-                this.vectorXLibSparse = solver.getSolver().solve(sparseFieldVector);
-                this.newVectorB = sparseFieldMatrix.multiply(vectorXLibSparse).getColumn(0);
-                return vectorXLibSparse.getColumn(0);
+                DMatrixRMaj out = new DMatrixRMaj(sparseMatix.numRows,1);
+                LinearSolverSparse<DMatrixSparseCSC,DMatrixRMaj> solverSparse = LinearSolverFactory_DSCC.lu(NONE);
+                solverSparse.setA(sparseMatix);
+                solverSparse.solve(sparseVector,out);
+                return null;
         }
         return null;
     }
