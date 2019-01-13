@@ -1,10 +1,7 @@
 package ug.pprotocols.matrix;
 
 import org.apache.commons.math3.linear.*;
-import org.ejml.data.DMatrixRMaj;
 import org.ejml.data.DMatrixSparseCSC;
-import org.ejml.interfaces.linsol.LinearSolverSparse;
-import org.ejml.sparse.csc.factory.LinearSolverFactory_DSCC;
 import ug.pprotocols.ChoiceType;
 import ug.pprotocols.Type;
 import ug.pprotocols.algorithm.GaussImpl;
@@ -16,13 +13,11 @@ import ug.pprotocols.operations.DoubleOperation;
 
 import java.util.Arrays;
 
-import static org.ejml.sparse.FillReducing.NONE;
-
 public class Equation<T extends MatrixCompatible> {
 
     private MyMatrix<T> matrixA;
-    public SparseFieldMatrix<DoubleComp> sparseFieldMatrix;
-    public SparseFieldMatrix<DoubleComp> sparseFieldVector;
+    public SparseRealMatrix sparseFieldMatrix;
+    public SparseRealMatrix sparseFieldVector;
     private MatrixCompatible[] vectorB;
     private MatrixCompatible[] vectorXGauss;
     private MatrixCompatible[] vectorXGaussSparse;
@@ -30,9 +25,7 @@ public class Equation<T extends MatrixCompatible> {
     private FieldMatrix<DoubleComp> vectorXLibSparse;
     private MatrixCompatible[] newVectorB;
     private GaussImpl gauss;
-    private FieldLUDecomposition<DoubleComp> solver;
-    private DMatrixSparseCSC sparseMatix;
-    private DMatrixRMaj sparseVector;
+    private LUDecomposition solver;
 
     public Equation(MyMatrix<T> matrixA, MatrixCompatible[] vectorB, MatrixCompatible vectorX) {
         this.matrixA = matrixA;
@@ -42,13 +35,14 @@ public class Equation<T extends MatrixCompatible> {
 //    public Equation(SparseFieldMatrix<DoubleComp> sparseFieldMatrix, SparseFieldMatrix<DoubleComp> sparseFieldVector) {
 //        this.sparseFieldMatrix = sparseFieldMatrix;
 //        this.sparseFieldVector = sparseFieldVector;
-//        solver = new FieldLUDecomposition<>(sparseFieldMatrix);
+//        solver = new EigenDecomposition<>(sparseFieldMatrix);
 //    }
 
 
-    public Equation(DMatrixSparseCSC sparseMatix, DMatrixRMaj sparseVector) {
-        this.sparseMatix = sparseMatix;
-        this.sparseVector = sparseVector;
+    public Equation(SparseRealMatrix sparseFieldMatrix, SparseRealMatrix sparseFieldVector) {
+        this.sparseFieldMatrix = sparseFieldMatrix;
+        this.sparseFieldVector = sparseFieldVector;
+        solver = new LUDecomposition(sparseFieldMatrix);
     }
 
     @Override
@@ -78,10 +72,13 @@ public class Equation<T extends MatrixCompatible> {
                 setNewVectorB(matrixA,this.vectorXGS);
                 return this.vectorXGS;
             case LIBRARY_SPARSE:
-                DMatrixRMaj out = new DMatrixRMaj(sparseMatix.numRows,1);
-                LinearSolverSparse<DMatrixSparseCSC,DMatrixRMaj> solverSparse = LinearSolverFactory_DSCC.lu(NONE);
-                solverSparse.setA(sparseMatix);
-                solverSparse.solve(sparseVector,out);
+                System.out.println("Zaczynam obliczanie...");
+                solver.getSolver().solve(sparseFieldVector);
+                System.out.println("Skończyłem obliczanie...");
+//                this.vectorB = sparseFieldVector.getColumnVector(0).toArray();
+//                this.vectorXLibSparse = solver.getSolver().solve(sparseFieldVector);
+//                this.newVectorB = sparseFieldMatrix.multiply(vectorXLibSparse).getColumn(0);
+//                return vectorXLibSparse.getColumn(0);
                 return null;
         }
         return null;
