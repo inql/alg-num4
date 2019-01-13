@@ -71,43 +71,43 @@ Za pomocą aproksymacji średniokwadratowej dyskretnej, wygenerowane zostały wi
 \end{enumerate}
 \begin{figure}[h]
 	\caption{Wykresy reprezentujące czas wykonania i błędy bezwzględne zaimplementowanych algorytmów \label{Rys1}}
-	\begin{subfigure}{0.3\textwidth}
+	\begin{subfigure}{0.5\textwidth}
 		\includegraphics[width=\textwidth]{img/Exec/e1.png}
 		\caption{ \label{Rys1a}}
 	\end{subfigure}
-	\begin{subfigure}{0.3\textwidth}
+	\begin{subfigure}{0.5\textwidth}
 		\includegraphics[width=\textwidth]{img/Exec/e2.png}
 		\caption{ \label{Rys1b}}
 	\end{subfigure}
-	\begin{subfigure}{0.3\textwidth}
+	\begin{subfigure}{0.5\textwidth}
 		\includegraphics[width=\textwidth]{img/Exec/e3.png}
 		\caption{ \label{Rys1c}}
 	\end{subfigure}
-	\begin{subfigure}{0.3\textwidth}
+	\begin{subfigure}{0.5\textwidth}
 		\includegraphics[width=\textwidth]{img/Exec/www.png}
 		\caption{ \label{Rys1d}}
 	\end{subfigure}
-	\begin{subfigure}{0.3\textwidth}
+	\begin{subfigure}{0.5\textwidth}
 	\includegraphics[width=\textwidth]{img/Exec/exec_ds.png}
 	\caption{ \label{Rys1j}}
 	\end{subfigure}
-	\begin{subfigure}{0.3\textwidth}
+	\begin{subfigure}{0.5\textwidth}
 		\includegraphics[width=\textwidth]{img/Prep/wyk1.png}
 		\caption{ \label{Rys1e}}
 	\end{subfigure}
-	\begin{subfigure}{0.3\textwidth}
+	\begin{subfigure}{0.5\textwidth}
 		\includegraphics[width=\textwidth]{img/Prep/wyk2.png}
 		\caption{ \label{Rys1f}}
 	\end{subfigure}
-		\begin{subfigure}{0.3\textwidth}
+		\begin{subfigure}{0.5\textwidth}
 		\includegraphics[width=\textwidth]{img/Prep/wyk3.png}
 		\caption{ \label{Rys1g}}
 	\end{subfigure}
-	\begin{subfigure}{0.35\textwidth}
+	\begin{subfigure}{0.5\textwidth}
 		\includegraphics[width=\textwidth]{img/Prep/prep_ds.png}
 		\caption{ \label{Rys1h}}
 	\end{subfigure}
-	\begin{subfigure}{0.35\textwidth}
+	\begin{subfigure}{0.5\textwidth}
 		\includegraphics[width=\textwidth]{img/Prep/wyk5.png}
 		\caption{ \label{Rys1i}}
 \end{subfigure}
@@ -166,14 +166,29 @@ Pozostałe wyniki znajdują się w tolerancji błędu aproksymacji.
 Z załączonej wyżej tabeli wynika, że metoda DS jest najszybsza ze wszystkich rozważanych.
 \end{wn}
 \section{Próba obliczenia}
-
+Ze względu na użycie biblioteki Commons Math, ograniczenia obiektu OpenMapRealMatrix (maksymalny rozmiar macierzy $ = ((X\cdot X) <=2147483647)$) oraz ograniczenia pamięciowe,konieczne było uruchomienie metody DS dla mniejszej ilości równań równej 12403
+\begin{center}
+	\begin{tabular}{|l|l|l|}
+	\hline
+	\multicolumn{3}{ |c| }{Próba obliczenia} \\
+	\hline
+	Metoda & Wariant & Wartość\\
+	\hline
+	\multirow{2}{*}{DS - aproksymacja} & Obliczanie & $87.52296395468811$ \\
+	& Generowanie & $0.0056371667465691345$ \\
+	\hline
+	\multirow{2}{*}{DS - rzeczywisty czas} & Obliczanie & $2.932007861300984$\\
+	& Generowanie & $0.0035357258834377552$\\
+	\hline
+\end{tabular}
+\end{center}
 \section{Podział pracy}
 \centering
 \begin{tabular}{| p{4.4cm} | p{4.4cm} | p{4.4cm} |}
 	\hline
 	\textbf{Dawid Bińkuś} & \textbf{Oskar Bir} & \textbf{Mateusz Małecki} \\ \hline
-	Praca nad strukturą projektu. & Analiza algorytmu Gaussa oraz implementacja wariantu G & Implementacja typu własnej precyzji \\ \hline
-	Przygotowanie sprawozdania & Przygotowanie testów i ich uruchomienie & Operacje na macierzach\\ \hline
-	Implementacja metod S i DS przy użyciu biblioteki & Analiza danych oraz określenie czasu pracy typu Fraction & Praca nad strukturą projektu \\ \hline	
+	Praca nad strukturą projektu. & Przygotowanie testów i ich uruchomienie & Implementacja typu własnej precyzji \\ \hline
+	Przygotowanie sprawozdania & Przygotowanie wykresów końcowych & Operacje na macierzach\\ \hline
+	Implementacja metod S i DS przy użyciu biblioteki & Implementacja aproksymacji sredniokwadratowej dyskretnej & Praca nad strukturą projektu \\ \hline	
 	\end{tabular}
 \end{document}
