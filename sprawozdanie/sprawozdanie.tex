@@ -42,12 +42,12 @@ W tym celu, zastosowana została aproksymacja dla metod testowanych w zadaniu 3:
 
 \end{itemize}
 Program na potrzeby analizy problemu został napisany w języku Java.
-Ilość agentów oznaczana jest jako $N$
+Ilość agentów oznaczana jest jako $N$.
 \section{Próbka pomiarów czasu}
 \subsection{Zakres testów}
 Na potrzeby wyliczenia funkcji aproksymacyjnej dla każdej z metod, wykonane zostały testy dla $N = 15,16,...,60$, co przy $N = 60$ odpowiada liczbie około 2000 równań. Dla mniejszej ilości agentów testy wydajnościowe zostały wykonane kilka razy dla uśredniania wyniku.
 \subsection{Wyniki}
-Wyniki zostały zamieszczone w pliku \href{run:./files/wyniki.csv}{csv}
+Wyniki zostały zamieszczone w pliku \href{run:./files/wyniki.csv}{csv}.
 \section{Aproksymacja średniokwadratowa dyskretna}
 Za pomocą aproksymacji średniokwadratowej dyskretnej, wygenerowane zostały wielomiany dla każdego typu pomiarów. Prezentują się one w sposób następujący:
 \begin{enumerate}
@@ -69,8 +69,8 @@ Za pomocą aproksymacji średniokwadratowej dyskretnej, wygenerowane zostały wi
 		\item $g(x)=(\expnumber{2.3048124134271384}{-5})x^2 - 0.020571995359005252x^1 + 4.514786569835568$ dla GS.
 	\end{enumerate}
 \end{enumerate}
-\begin{figure}[h]
-	\caption{Wykresy reprezentujące czas wykonania i błędy bezwzględne zaimplementowanych algorytmów \label{Rys1}}
+\begin{figure}
+	\caption{Wykresy reprezentujące porównanie funkcji aproksymacyjnej z rzeczywistymi wartościami danych metod. \label{Rys1}}
 	\begin{subfigure}{0.5\textwidth}
 		\includegraphics[width=\textwidth]{img/Exec/e1.png}
 		\caption{ \label{Rys1a}}
@@ -163,32 +163,36 @@ Pozostałe wyniki znajdują się w tolerancji błędu aproksymacji.
 	\end{tabular}
 \end{center}
 \begin{wn}
-Z załączonej wyżej tabeli wynika, że metoda DS jest najszybsza ze wszystkich rozważanych.
+Z załączonej wyżej tabeli wynika, że metoda DS jest najszybsza ze wszystkich rozważanych.\label{wn:1}
 \end{wn}
 \section{Próba obliczenia}
-Ze względu na użycie biblioteki Commons Math, ograniczenia obiektu OpenMapRealMatrix (maksymalny rozmiar macierzy $ = ((X\cdot X) <=2147483647)$) oraz ograniczenia pamięciowe,konieczne było uruchomienie metody DS dla mniejszej ilości równań równej 12403
+Na podstawie wniosku \ref{wn:1}, za najszybszą metodę została uznana metoda DS.
+Ze względu na użycie biblioteki Commons Math, ograniczenia obiektu OpenMapRealMatrix (maksymalny rozmiar macierzy $ = ((X\cdot X) <=2147483647)$) oraz ograniczenia pamięciowe,konieczne było uruchomienie metody DS dla mniejszej ilości równań równej 12403. Rezultaty z próby obliczenia zostały zamieszczone w tabeli poniżej:
 \begin{center}
-	\begin{tabular}{|l|l|l|}
+	\begin{tabular}{|l|l|}
 	\hline
-	\multicolumn{3}{ |c| }{Próba obliczenia} \\
+	\multicolumn{2}{ |c| }{Podsumowanie wyników} \\
 	\hline
-	Metoda & Wariant & Wartość\\
+	Metoda & Wartość [s]\\
 	\hline
-	\multirow{2}{*}{DS - aproksymacja} & Obliczanie & $87.52296395468811$ \\
-	& Generowanie & $0.0056371667465691345$ \\
+	DS - aproksymacja & $70.12796317673274$\\
 	\hline
-	\multirow{2}{*}{DS - rzeczywisty czas} & Obliczanie & $2.932007861300984$\\
-	& Generowanie & $0.0035357258834377552$\\
+	DS - rzeczywisty czas & $1784.1351$\\
 	\hline
 \end{tabular}
 \end{center}
+Po przekroczeniu czasu pięciokrotnie, program znajdował się na etapie inicjacji solvera z biblioteki LUDecomposition, tj. obliczaniu dekompozycji macierzy.
+\begin{wn}
+Porównanie rzeczywistego czasu wykonania oraz wartości funkcji aproksymacyjnej dowodzi niedoskonałości aproksymacji.\label{wn:2}
+\end{wn}
+
 \section{Podział pracy}
 \centering
 \begin{tabular}{| p{4.4cm} | p{4.4cm} | p{4.4cm} |}
 	\hline
 	\textbf{Dawid Bińkuś} & \textbf{Oskar Bir} & \textbf{Mateusz Małecki} \\ \hline
 	Praca nad strukturą projektu. & Przygotowanie testów i ich uruchomienie & Implementacja typu własnej precyzji \\ \hline
-	Przygotowanie sprawozdania & Przygotowanie wykresów końcowych & Operacje na macierzach\\ \hline
+	Przygotowanie sprawozdania & Przygotowanie wykresów końcowych & Implementacja aproksymacji sredniokwadratowej dyskretnej\\ \hline
 	Implementacja metod S i DS przy użyciu biblioteki & Implementacja aproksymacji sredniokwadratowej dyskretnej & Praca nad strukturą projektu \\ \hline	
 	\end{tabular}
 \end{document}
